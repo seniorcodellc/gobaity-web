@@ -1,0 +1,17 @@
+﻿@using YallaBaity.Resources
+
+<!--Start MapModel-->
+<div class="MapModel">
+    <div class="map" id="map"></div>
+    <div>
+        <p><b>@AppResource.lbDeliverTo:</b></p>
+        <p id="MapAddress"> </p>
+        <div class="text-center">
+            <button class="button-style btn-black" onclick="CloseModel()">@AppResource.lbClose</button>
+            <button class="button-style btn-lg" onclick=" ConfirmLocation()">   @AppResource.lbConfirmLocation</button>
+        </div>
+    </div>
+</div>
+
+<div class="MapCover" onclick="CloseModel()"></div>
+<!--End MapModel-->

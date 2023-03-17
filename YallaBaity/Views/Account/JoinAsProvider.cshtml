@@ -1,0 +1,59 @@
+﻿@using YallaBaity.Resources;
+
+@{
+    ViewBag.Title = AppResource.lbJoinAsAProvider;
+}
+
+<div class="SignIn">
+    <div class="SignInForm">
+        <img src="~/side/imgs/gobaity.png" />
+        <div id="JoinAsProvider">
+            <input type="hidden" id="hdLocation" />
+            <input type="hidden" id="hdLng" />
+            <input type="hidden" id="hdLat" />
+
+            <h3 class="mtb-60 text-center"> @AppResource.lbJoinAsAProvider</h3>
+            <div class="form-group">
+                <select id="ddlGovernorate" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"> </select>
+            </div>
+
+            <div class="form-group">
+                <textarea id="txtAddress" class="input-style" placeholder="@AppResource.lbAddress" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"></textarea>
+            </div>
+
+            <div class="form-group text-center">
+                <button class="button-style button-style2 btn-lg" onclick="OpenModel();">@AppResource.lbAddLocation</button>
+            </div>
+
+            <div class="form-group text-center">
+                <button class="button-style button-style2 btn-lg UploadNationalIdCard" data-target="#NationalIdCardFace">@AppResource.lbClickToAddTheFrontOfTheCard</button>
+                <input type="file" hidden id="NationalIdCardFace" />
+            </div>
+
+            <div class="form-group text-center">
+                <button class="button-style button-style2 btn-lg UploadNationalIdCard" data-target="#NationalIdcardBack">@AppResource.lbClickToAddTheBackOfTheCard</button>
+                <input type="file" hidden id="NationalIdcardBack" />
+            </div>
+
+            <div class="form-group text-center">
+                <button class="button-style btn-lg button-loading" id="btnSave">
+                    @AppResource.lbSubmitForReview
+                    <img src="/side/imgs/loading.gif" class="img-responsive">
+                </button>
+            </div>
+           
+        </div>
+
+    </div>
+
+    <img class="hidden-xs hidden-sm hidden-md hidden-lg SignInBackground" src="~/side/imgs/account.png" />
+</div>
+
+<partial name="_Map" />
+
+@section bottom
+{
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU0uc-KUAc29HmNH_mmoGpxN9J-bj3MEE&callback=initMap"></script>
+    <script src="~/side/js/joinasprovider.js"></script>
+    <script src="~/side/js/Map.js"></script>
+}

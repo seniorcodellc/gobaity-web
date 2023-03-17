@@ -1,0 +1,1450 @@
+﻿/*Start Root*/
+:root {
+    --main-color: #7A3787;
+    --main-color2: #FFF836;
+}
+/*End Root*/
+
+
+/*Start Global*/
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'GE_SS_Two_Bold';
+    src: url('../fonts/fonts-ar/GE_SS_Two_Bold.otf') format('OpenType');
+}
+
+@font-face {
+    font-family: 'GESSTwoMedium';
+    src: url('../fonts/fonts-ar/GESSTwoMedium.otf') format('OpenType');
+}
+
+
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: url('../fonts/fonts-en/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Medium';
+    src: url('../fonts/fonts-en/Poppins-Medium.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Poppins-Medium';
+}
+
+a, a:visited, a:hover {
+    text-decoration: none
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+    ul.inlineList {
+        align-items: center;
+        display: flex;
+    }
+
+        ul.inlineList > li {
+            display: inline-block;
+            margin: 0px 8px;
+        }
+
+.img-responsive {
+    max-width: 100%;
+    max-height: 100%
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.input-style {
+    background-color: #F6F6F6;
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    padding: 15px 25px;
+    margin: 11px 0px;
+    border-radius: 15px;
+    color: #665968;
+}
+
+input.is-invalid, textarea.is-invalid, select.is-invalid {
+    border: 1px solid #ff0000;
+}
+
+.text-invalid {
+    color: #ff0000;
+    display: block;
+    text-align: left;
+}
+
+.input-style.input-sm {
+    width: 130px;
+}
+
+.button-style {
+    background-color: var(--main-color);
+    outline: none;
+    text-align: center;
+    color: #fff;
+    width: 180px;
+    height: 50px;
+    border-radius: 50px;
+    transition: all .5s ease-in-out;
+    border: 2px solid var(--main-color);
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+}
+
+
+
+.button-loading {
+    position: relative;
+}
+
+    .button-loading img {
+        position: absolute;
+        right: 43px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 33px;
+        display: none;
+    }
+
+    .button-loading[disabled] img {
+        display: block;
+    }
+
+.button-style2 {
+    background-color: #fff;
+    color: #50555C;
+    box-shadow: 5px 5px 5px #d1d1d1, -5px -5px 5px #d1d1d1;
+    border-color: #d1d1d1;
+    border-radius: 14px;
+}
+
+a.button-style {
+    line-height: 3;
+}
+
+.button-style:hover {
+    border-color: #fff;
+}
+
+.button-style.btn-lg {
+    width: 400px;
+    max-width: 100%
+}
+
+.button-style.btn-100 {
+    width: 100%;
+}
+
+.button-style.btn-black {
+    background-color: #000;
+    border: 2px solid #000;
+}
+
+.button-password {
+    position: absolute;
+    top: 26px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    color: #767575;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mtb-60 {
+    margin: 60px 0px;
+}
+
+.mb-100 {
+    margin-bottom: 100px
+}
+
+.mt-100 {
+    margin-top: 100px
+}
+
+.mt-10 {
+    margin-top: 10px
+}
+.mt-20 {
+    margin-top: 10px
+}
+.mt-30 {
+    margin-top: 30px
+}
+
+.mt-50 {
+    margin-top: 50px
+}
+
+.margin-auto {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.lnk {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: var(--main-color)
+}
+/*Start MapModel*/
+.MapModel {
+    position: fixed;
+    max-width: 100%;
+    width: 700px;
+    top: 50%;
+    left: 50%;
+    z-index: 2000;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    display: none
+}
+
+    .MapModel .map {
+        height: 400px;
+        border-radius: 20px;
+    }
+
+.MapCover {
+    width: 100%;
+    height: 100%;
+    background-color: #00000082;
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    z-index: 40;
+    display: none
+}
+/*End MapModel*/
+/*Start RadioButton*/
+.RadioButton {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+    .RadioButton span {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0px 10px;
+    }
+
+        .RadioButton span:before {
+            content: '';
+            display: inline-block;
+            background-color: transparent;
+            width: calc(100% + 6px);
+            height: calc(100% + 6px);
+            transform: translate(-2.9px, -3px);
+            border-radius: 50%;
+            border: 1px solid var(--main-color);
+        }
+
+        .RadioButton span.active {
+            background-color: var(--main-color);
+        }
+
+    .RadioButton p {
+        align-items: center;
+        display: flex;
+        margin:0px;
+    }
+
+        .RadioButton p img {
+            margin: 0px 8px;
+        }
+/*End RadioButton*/
+@media only screen and (max-width: 575.99px) {
+    .hidden-xs {
+        display: none;
+    }
+
+    .center-xs {
+        text-align: center
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767.99px) {
+    .hidden-sm {
+        display: none;
+    }
+
+    .center-sm {
+        text-align: center
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.99px) {
+    .hidden-md {
+        display: none;
+    }
+
+    .center-md {
+        text-align: center
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199.99px) {
+    .hidden-lg {
+        display: none;
+    }
+
+    .center-lg {
+        text-align: center
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .hidden-xl {
+        display: none;
+    }
+
+    .center-xl {
+        text-align: center
+    }
+}
+
+/*End Global*/
+/*Start Nav*/
+.MainNav {
+    background-color: var(--main-color);
+    width: 100%;
+    z-index: 10;
+}
+
+    .MainNav.fixed {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        padding: 5px 0px;
+    }
+
+        .MainNav.fixed .container .row {
+            height: 90px;
+        }
+
+    .MainNav .container .row {
+        height: 114px;
+        align-items: center
+    }
+
+    .MainNav .container .MainNavLinks a {
+        color: #fff;
+        padding: 9px 0px;
+    }
+
+        .MainNav .container .MainNavLinks a:hover {
+            color: var(--main-color2);
+        }
+
+    /* .MainNav .container .LinkDropDown:hover .MainNavDropdown {
+        z-index: 10;
+        transform: translate(-50%,20px);
+        opacity: 1;
+        height: auto;
+        overflow: unset;
+    }*/
+
+    .MainNav .container .LinkDropDown:hover .MainNavDropdown a {
+        color: #000
+    }
+
+    .MainNav .container .LinkDropDown i {
+        color: var(--main-color2)
+    }
+
+    .MainNav .container .MainNavDropdown {
+        background-color: #fff;
+        position: absolute;
+        border-radius: 5px;
+        border: 1px solid #d1d1d1;
+        box-shadow: 1px 2px 5px #eee;
+        width: 320px;
+        max-width: 100%;
+        transform: translateY(-18px);
+        padding: 18px 5px;
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+        transition: all .2s linear;
+        opacity: 0;
+        z-index: -1;
+        overflow: hidden;
+        height: 0px;
+        right: unset;
+        left: 0px;
+    }
+
+        .MainNav .container .MainNavDropdown.open {
+            z-index: 10;
+            transform: translateY(20px);
+            opacity: 1;
+            height: auto;
+            overflow: unset;
+        }
+
+        .MainNav .container .MainNavDropdown:before {
+            content: "";
+            border-style: solid;
+            border-width: 14px;
+            border-color: transparent transparent #fff transparent;
+            display: inline-block;
+            position: absolute;
+            transform: translate(0px, -28px);
+            left: 110px;
+        }
+
+        .MainNav .container .MainNavDropdown div {
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            transition: all .5s ease-in-out
+        }
+
+            .MainNav .container .MainNavDropdown div:hover {
+                background-color: #eee;
+            }
+
+        .MainNav .container .MainNavDropdown a {
+            color: #000
+        }
+
+        .MainNav .container .MainNavDropdown img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .MainNav .container .MainNavDropdown div h6 {
+            margin: 0px 3px;
+            font-size: 14px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    /*     .MainNav .container .MainNavDropdown ul {
+            display: block
+        }
+
+            .MainNav .container .MainNavDropdown ul li {
+                display: block
+            }
+
+                .MainNav .container .MainNavDropdown ul li a {
+                    color: #515151;
+                    display: block;
+                    padding: 5px 0px;
+                    transition: all .5s ease-in-out;
+                    border-bottom: 1px solid #f6f2f2;
+                }
+
+                    .MainNav .container .MainNavDropdown ul li a:hover {
+                        transform: translateX(3px)
+                    }*/
+
+    .MainNav .container #lnkAddFood {
+        background-color: #fff;
+        color: #000;
+        padding: 3px;
+        border-radius: 15px;
+        width: 95px;
+        display: block;
+        text-align: center;
+    }
+
+    .MainNav .container .MainNavControls {
+        justify-content: end
+    }
+
+        .MainNav .container .MainNavControls li .LinkBasket {
+            color: #fff;
+            font-size: 18px;
+        }
+
+            .MainNav .container .MainNavControls li .LinkBasket:before {
+                content: attr( data-count);
+                background-color: var(--main-color2);
+                color: #000;
+                display: inline-block;
+                width: 12px;
+                height: 14px;
+                border-radius: 50%;
+                font-size: 10px;
+                font-weight: bold;
+                text-align: center;
+                border: 1px solid #fff;
+                padding: 0px;
+                transform: translate(24px, -10px);
+            }
+
+        .MainNav .container .MainNavControls li .LinkButton {
+            background-color: var(--main-color2);
+            color: #000;
+            min-width: 100px;
+            text-align: center;
+            display: inline-block;
+            border-radius: 20px;
+            padding: 10px;
+            transition: all .5s ease-in-out;
+            border: 2px solid var(--main-color)
+        }
+
+            .MainNav .container .MainNavControls li .LinkButton:hover {
+                border-color: #fff
+            }
+
+        .MainNav .container .MainNavControls #btnUserProfile {
+            font-size: 22px;
+            background-color: transparent;
+            color: #fff;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+
+.UserProfileList {
+    background-color: #fff;
+    position: absolute;
+    right: 0px;
+    z-index: 5;
+    padding: 10px 0px;
+    border-radius: 7px;
+    margin-top: 10px;
+    width: 250px;
+    box-shadow: 3px 2px 5px #202020ad;
+    display: none
+}
+
+    .UserProfileList.open {
+        display: block
+    }
+
+    .UserProfileList ul li a {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px 25px;
+        transition: all .5s ease-in-out;
+        color: #000
+    }
+
+    .UserProfileList ul li:not(:last-of-type) a {
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+    .UserProfileList ul li a:hover {
+        background-color: #eee
+    }
+
+    .UserProfileList ul li:last-of-type a span:first-of-type {
+        color: #ff0000
+    }
+
+.BackdropCover {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: transparent;
+    z-index: 2;
+    display: none
+}
+
+@media(max-width:768px) {
+    .MainNav .container .row div:nth-of-type(1) {
+        order: 1
+    }
+
+    .MainNav .container .row div:nth-of-type(2) {
+        order: 3
+    }
+
+    .MainNav .container .row div:nth-of-type(3) {
+        order: 2
+    }
+
+    .MainNav .container .LinkDropDown .MainNavDropdown {
+        width: calc(100% - 10px);
+        left: 0;
+        margin: 0px 5px;
+        transform: translate(0px, 15px) !important;
+    }
+
+    .MainNav .container .MainNavDropdown:before {
+        content: unset
+    }
+}
+/*End Nav*/
+
+/*Start Banner*/
+.BannerForm {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0px 50px;
+    color: #fff;
+    width: 350px;
+    max-width: 100%;
+}
+
+    .BannerForm h1 {
+        line-height: 1.6;
+        font-size: 45px;
+    }
+
+@media(max-width:768px) {
+
+    .BannerForm h1 {
+        font-size: 30px;
+    }
+
+    .BannerForm {
+        margin: 0px 15px;
+    }
+}
+/*End Banner*/
+/*Start Apps*/
+.Apps {
+    margin: 100px 0px;
+}
+
+    .Apps a:not(.button-style) {
+        color: var(--main-color)
+    }
+
+    .Apps .container {
+        background: #FFF83629;
+        border-radius: 30px;
+        padding: 20px;
+    }
+
+        .Apps .container h2, .Apps .container p {
+            color: #333333
+        }
+/*End Apps*/
+/*Start Features*/
+.Features {
+    margin-bottom: 100px;
+}
+
+    .Features .container {
+        text-align: center;
+    }
+/*End Features*/
+/*Start UserFoodBackground*/
+.UserFoodBackground {
+    background: url(/Side/imgs/ProviterBackground.png);
+    min-height: 365px;
+    position: relative;
+}
+
+    .UserFoodBackground:before {
+        content: '';
+        background-color: #0000009e;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .UserFoodBackground h3, .UserFoodBackground p {
+        color: #fff
+    }
+
+    .UserFoodBackground .proviterbackgroundicon {
+        width: 100%;
+        border-radius: 20px;
+        margin: 50px 0px;
+    }
+
+    .UserFoodBackground .UserFoodBackgroundForm {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .UserFoodBackground .StarsContainer {
+        color: #FFC736
+    }
+
+    .UserFoodBackground .UserFoodBackgroundForm div:last-of-type {
+        padding: 0px 10px;
+    }
+/*End UserFoodBackground*/
+
+/*Start NavFilter*/
+.NavFilter ul li {
+    color: #263238;
+    padding: 10px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background-color .5s ease-in-out;
+}
+
+    .NavFilter ul li:hover, .NavFilter ul li.active {
+        background-color: #F5F5F5;
+        border-left-color: var(--main-color)
+    }
+/*End NavFilter*/
+/*Start FoodBanner*/
+.FoodBanner {
+    padding-top: 40px;
+}
+
+    .FoodBanner .owl-theme .owl-dots .owl-dot span {
+        width: 20px;
+        height: 5px;
+        border-radius: 5px;
+        transition: all .5s ease-in-out
+    }
+
+    .FoodBanner .owl-theme .owl-dots .owl-dot.active span {
+        width: 30px;
+        background-color: var(--main-color)
+    }
+
+    .FoodBanner img {
+        max-height: 430px;
+    }
+/*End FoodBanner*/
+/*Start SearchBar*/
+.SearchBar {
+    padding: 50px 0px;
+}
+
+    .SearchBar .SearchTextContainer {
+        background: #F6F6F6;
+        height: 50px;
+        border-radius: 50px;
+        padding: 11px 30px;
+    }
+
+        .SearchBar .SearchTextContainer input {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            outline: none;
+            border: none;
+        }
+
+        .SearchBar .SearchTextContainer i {
+            position: absolute;
+            top: 50%;
+            transform: translate(-20px, -50%);
+        }
+
+    .SearchBar .SearchSortingContainer {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 15px 0px;
+    }
+
+        .SearchBar .SearchSortingContainer .SortItem {
+            cursor: pointer
+        }
+
+            .SearchBar .SearchSortingContainer .SortItem.active {
+                color: var(--main-color)
+            }
+/*End SearchBar*/
+
+/*Start Foods*/
+.Foods .Title {
+    padding: 25px;
+}
+
+/*.Foods .FoodsList*/ .FoodsItem {
+    border-bottom: 1px solid #d1d1d1;
+    padding: 20px 5px;
+    transition: all .5s ease-in-out
+}
+
+    /*  .Foods .FoodsList*/ .FoodsItem:hover {
+        background-color: #eee;
+    }
+
+    .FoodsItem .food-form .food-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .FoodsItem .food-form .food-title .controls {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: 17px;
+            color: #909090;
+        }
+    /*  .Foods .FoodsList */ .FoodsItem .food-form .food-title,
+    /*.Foods .FoodsList */ .FoodsItem .food-form a {
+        color: #263238;
+    }
+
+    /* .Foods .FoodsList*/ .FoodsItem .food-form .row > div > div {
+        display: flex;
+        justify-content: start;
+        width: 100%;
+        padding: 7px 0px;
+        align-items: center;
+        color: #263238;
+    }
+
+    /*   .Foods .FoodsList */ .FoodsItem .food-form span {
+        color: #909090;
+        font-size: 14px
+    }
+
+.Foods {
+    margin-bottom: 100px;
+}
+    /*End Foods*/
+    /*Start Foods Pageing*/
+    .Foods .FoodsPageing {
+        margin-top: 80px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+
+        .Foods .FoodsPageing b {
+            padding: 5px;
+        }
+
+        .Foods .FoodsPageing ul {
+            display: flex;
+            margin: 0px 20px;
+            justify-content: space-around;
+            width: 150px;
+        }
+
+            .Foods .FoodsPageing ul li button {
+                border: none;
+                background: #AEAEAE4D;
+                border-radius: 10px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                transition: all .5s ease-in-out;
+                border: 2px solid transparent
+            }
+
+                .Foods .FoodsPageing ul li button:hover {
+                    border-color: #fff
+                }
+
+                .Foods .FoodsPageing ul li button.active {
+                    background-color: var(--main-color);
+                    color: #fff
+                }
+
+        .Foods .FoodsPageing .PageBack, .Foods .FoodsPageing .PageNext {
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: all .5s ease-in-out;
+        }
+
+            .Foods .FoodsPageing .PageBack:hover,
+            .Foods .FoodsPageing .PageNext:hover {
+                background: #AEAEAE4D;
+            }
+/*End FoodsPageing*/
+/*Start Checkout*/
+.Checkout .card {
+    box-shadow: 5px 5px 5px #d1d1d1, -5px -5px 5px #d1d1d1;
+    padding: 33px 10px;
+    border-radius: 15px;
+    margin: 20px 0px;
+}
+
+.Checkout .DeliveryAddress {
+    overflow-x: auto;
+}
+.Checkout .Payment > div {
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.Checkout .cartSummary .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+}
+
+    .Checkout .cartSummary .card-header p
+    {
+        margin:0px
+    }
+    .Checkout .cartSummary .card-body > div:not(:last-of-type) {
+        border-bottom: 1px solid #000;
+    }
+
+.Checkout .cartSummary .card-body #CartList {
+    max-height: 240px;
+    overflow-y: auto;
+}
+.Checkout .cartSummary .card-body > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.Checkout .PaymentDeliveryTime .card-body .RadioButton {
+    margin-right: 20px;
+}
+
+.Checkout .PaymentDeliveryTime .card-body > div:not(:last-of-type) {
+    border-bottom: 1px solid #000;
+    margin-bottom: 25px;
+    padding-bottom: 13px;
+}
+
+.Checkout .PaymentDeliveryTime .card-body .PaymentMethod > div > .RadioButton {
+    background-color: #eee;
+    border-radius: 25px;
+    padding: 15px 15px;
+    margin-bottom: 10px;
+}
+
+ 
+/*End Checkout*/
+/*Start Card*/
+.Cart-Remove {
+    background-color: transparent;
+    color: #606060;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.Qty-container button {
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    border-radius: 11px;
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+}
+
+    .Qty-container button.active {
+        background-color: var(--main-color);
+        color: #fff
+    }
+
+.Qty-container input {
+    width: 50px;
+    height: 28px;
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+/*End Card*/
+/*Start Food Details*/
+.FoodSlider {
+    margin-top: 100px;
+}
+
+    .FoodSlider .selectedImageContainer {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .FoodSlider .FoodSlider-Container {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        grid-gap: 10px;
+    }
+
+        .FoodSlider .FoodSlider-Container img {
+            width: 200px;
+            height: 180px;
+            cursor: pointer
+        }
+
+.FoodData .Title {
+    color: var(--main-color)
+}
+
+.FoodData a {
+    color: var(--main-color)
+}
+
+.FoodData .Foods-Delivery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .FoodData .Foods-Delivery div {
+        margin: 0px 5px;
+        padding: 5px 0px;
+    }
+
+    .FoodData .Foods-Delivery span {
+        font-size: 14px;
+        color: #909090;
+    }
+
+.FoodData .FoodCategorys > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .FoodData .FoodCategorys > div > div {
+        padding: 5px;
+        width: 280px;
+    }
+/*End  Food Details*/
+/*Start FoodsTaps*/
+.FoodsTaps {
+    margin: 80px 0px
+}
+
+    .FoodsTaps .Taps {
+        display: flex;
+        border-bottom: 2px solid #eee;
+    }
+
+        .FoodsTaps .Taps div {
+            text-align: center;
+            width: 260px;
+            max-width: 33.33%;
+            padding: 15px 0px;
+            cursor: pointer;
+            margin-bottom: -2px;
+        }
+
+            .FoodsTaps .Taps div:hover {
+                background-color: #eee;
+            }
+
+            .FoodsTaps .Taps div.active {
+                border-bottom: 2px solid var(--main-color);
+            }
+
+    .FoodsTaps .TapContaint > div {
+        padding: 10px 5px;
+    }
+
+        .FoodsTaps .TapContaint > div:not(.active) {
+            display: none
+        }
+
+    .FoodsTaps .TapContaint .Tags {
+        margin: 20px 0px;
+    }
+
+        .FoodsTaps .TapContaint .Tags span {
+            background-color: #eee;
+            padding: 5px;
+            margin: 0px 8px;
+            color: #606060;
+            display: inline-block
+        }
+
+            .FoodsTaps .TapContaint .Tags span:first-of-type {
+                margin-left: 0px
+            }
+
+    .FoodsTaps .TapContaint .ReviewItem:not(:last-of-type):after {
+        content: '';
+        background-color: #d1d1d1;
+        width: 80%;
+        height: .8px;
+        display: block;
+        margin: 35px auto 0px;
+    }
+
+    .FoodsTaps .TapContaint .ReviewItem > div:first-of-type {
+        display: flex;
+        align-items: center;
+    }
+
+        .FoodsTaps .TapContaint .ReviewItem > div:first-of-type p {
+            margin: 0px 15px;
+        }
+
+    .FoodsTaps .TapContaint .ReviewItem > p {
+        color: #606060
+    }
+
+    .FoodsTaps .TapContaint .ReviewItem .StarsContainer {
+        color: #FFC736;
+    }
+
+/*End FoodsTaps*/
+/*Payment*/
+.Payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px
+}
+
+    .Payment > div {
+        width: 320px;
+        max-width: 100%;
+        margin-bottom: 50px;
+    }
+
+        .Payment > div > div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+            .Payment > div > div span:last-of-type,
+            .Payment > div > div:last-of-type span {
+                font-weight: bold
+            }
+
+/*Payment*/
+
+/*Start Account*/
+.SignIn {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .SignIn .SignInBackground, .SignIn .SignInForm {
+        width: 50%
+    }
+
+    .SignIn .SignInForm {
+        padding: 100px 130px;
+        flex-grow: 1;
+    }
+
+        /*  .SignIn .SignInForm div {
+            text-align: center;
+        }*/
+        .SignIn .SignInForm .form-group {
+            position: relative;
+        }
+
+        .SignIn .SignInForm .input-group input:first-of-type {
+            width: 28%;
+        }
+
+        .SignIn .SignInForm .input-group input:last-of-type {
+            width: 69%;
+        }
+
+        .SignIn .SignInForm .input-group-equals input {
+            width: 23%;
+            text-align: center;
+        }
+
+        .SignIn .SignInForm .button-style {
+            margin: 30px 0px
+        }
+
+        .SignIn .SignInForm p {
+            color: var(--main-color)
+        }
+
+            .SignIn .SignInForm p u {
+                cursor: pointer
+            }
+
+        .SignIn .SignInForm #SignInConfirmCode {
+            display: none
+        }
+
+
+
+    .SignIn .CartReview {
+        max-width: 200px;
+    }
+
+@media(max-width:600px) {
+    .SignIn .SignInForm {
+        padding: 100px 20px;
+    }
+}
+/*End Account*/
+/*Start Profile*/
+
+
+.Profile .ProfileTaps > div {
+    display: none;
+}
+
+    .Profile .ProfileTaps > div.active {
+        display: block;
+    }
+
+.Profile .RadioButton {
+    margin: 0px 11px
+}
+
+.OrderHead > div {
+    display: flex;
+    justify-content: space-around;
+    background-color: #eee;
+    padding: 16px 5px;
+}
+
+    .OrderHead > div a {
+        background-color: #7a3787;
+        color: #fff;
+        width: 80px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 16px;
+        padding: 5px 0px;
+    }
+
+.ImageProfileContainer {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #d1d1d1, -5px -5px 5px #d1d1d1;
+    margin: 0px auto;
+}
+
+    .ImageProfileContainer img {
+        width: 125px;
+        cursor: pointer;
+    }
+/*End Profile*/
+/*Start FoodsAction*/
+.FoodsAction {
+    width: 500px;
+    max-width: 100%;
+    margin: 101px auto;
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #f6f6f6 !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: solid #f6f6f6 1px !important;
+    border-radius: 15px !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #f6f6f6 1px !important;
+}
+
+.select2-selection {
+    min-height: 46.1px !important;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    min-width: 120px !important;
+    padding-left: 23px !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    height: 100% !important;
+}
+
+#ImagesContainer img {
+    width: 130px;
+    margin: 5px;
+}
+/*End FoodsAction*/
+
+/*Start Order Details*/
+#OrderAddress {
+    margin-top: 50px;
+}
+
+    #OrderAddress .map {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 500px;
+        border-radius: 26px;
+    }
+
+#OrderAddressList {
+    margin: 25px 0px 60px
+}
+
+    #OrderAddressList ul {
+        margin-top: 50px;
+    }
+
+        #OrderAddressList ul li {
+            margin: 25px 0px;
+            color: var(--main-color);
+        }
+
+            #OrderAddressList ul li span {
+                color: #000
+            }
+/*End Order Details*/
+/*Start Footer*/
+.MainFooter {
+    background-color: var(--main-color);
+    padding: 120px 0px
+}
+
+    .MainFooter .footer-information {
+        color: #fff;
+    }
+
+        .MainFooter .footer-information ul {
+            display: flex;
+            justify-content: space-around;
+            font-size: 20px;
+        }
+
+    .MainFooter ul li {
+        margin: 15px 0px
+    }
+
+        .MainFooter ul li, .MainFooter ul li a {
+            color: #f8f7f7
+        }
+
+    .MainFooter a {
+        transition: all .5s ease-in-out;
+        display: inline-block
+    }
+
+        .MainFooter a:hover {
+            transform: translateY(-3px)
+        }
+/*End Footer*/
+
+/*Start Right To Left*/
+
+body.rtl {
+    direction: rtl;
+    text-align: right;
+    font-family: Tahoma;
+}
+
+    body.rtl .button-password {
+        right: unset;
+        left: 10px;
+    }
+
+    body.rtl .UserProfileList {
+        right: unset;
+        left: 0px;
+    }
+
+    body.rtl .MainNav .container .MainNavDropdown:before {
+        transform: translate(-10px, -28px);
+    }
+
+    body.rtl .MainNav .container .MainNavDropdown {
+        left: unset;
+        right: 0px;
+    }
+
+        body.rtl .MainNav .container .MainNavDropdown ul li a:hover {
+            transform: translateX(-3px)
+        }
+
+    /*    body.rtl .MainNav .container .MainNavControls li .LinkBasket:before {
+        transform: translate(-24px, -10px);
+    }*/
+    body.rtl .text-invalid {
+        text-align: right
+    }
+
+    body.rtl .SearchBar .SearchTextContainer i {
+        transform: translate(20px, -50%);
+    }
+
+    body.rtl .Foods .FoodsPageing .PageBack,
+    body.rtl .Foods .FoodsPageing .PageNext,
+    body.rtl .Foods .FoodsItem i.fa-angle-right {
+        transform: rotate(180deg);
+    }
+
+    body.rtl .RadioButton span:before {
+        transform: translate(2.9px, -3px);
+    }
+
+    body.rtl .Checkout .PaymentDeliveryTime .RadioButton {
+        margin-left: 20px;
+    }
+
+    body.rtl .MainNav .container .MainNavControls li .LinkBasket:before {
+        transform: translate(-24px, -10px);
+    }
+
+    body.rtl .NavFilter ul li {
+        border-right: 3px solid transparent;
+        border-left: unset
+    }
+
+        body.rtl .NavFilter ul li:hover,
+        body.rtl .NavFilter ul li.active {
+            border-right-color: var(--main-color);
+            border-left-color: transparent;
+        }
+
+    body.rtl .modal-header .close {
+        margin-right: auto;
+        margin-left: 0px;
+    }
+
+/*End Right To Left*/

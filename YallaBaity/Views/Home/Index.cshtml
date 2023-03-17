@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<!--Start Banner-->
+<section class="Banner">
+    <div class="owl-carousel owl-theme">
+        <div class="item">
+            <img src="~/side/imgs/banner.png" class="img-responsive" />
+            <div class="BannerForm">
+                <h1>@AppResource.lbBeTheFastestInDeliveringYourFood  </h1>
+                <button href="#" class="button-style" onclick="StartOrdering()">@AppResource.lbStartOrdering</button>
+            </div>
+        </div> 
+    </div>
+</section>
+<!--End Banner-->
+<!--Start Apps-->
+<section class="Apps">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-12 flex-center">
+                <div>
+                    <a href="#">@AppResource.lbDownloadApp </a>
+                    <h2> @AppResource.lbGetStartedWithGoBaityToday </h2>
+                    <p> @AppResource.lbDiscoverBaityFood </p>
+                    <a href="#" class="button-style"> @AppResource.lbGetTheApp</a>
+                </div>
+            </div>
+            <div class="col-sm-6 hidden-xs">
+                <img src="~/side/imgs/mobiles.png" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Apps-->
+<!--Start Features-->
+<section class="Features">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <img src="~/side/imgs/features1.png" class="img-responsive" />
+                <h4>@AppResource.lbEasyToOrder</h4>
+                <p>@AppResource.lbYouOnlyNeedAFewStepsInOrderingFood</p>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <img src="~/side/imgs/features2.png" class="img-responsive" />
+                <h4>@AppResource.lbFastestDelivery</h4>
+                <p>@AppResource.lbDeliveryThatIsAlwaysOnTimeEvenFaster</p>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <img src="~/side/imgs/features3.png" class="img-responsive" />
+                <h4> @AppResource.lbBestQuality</h4>
+                <p> @AppResource.lbNotOnlyFastForUsQualityIsAlsoNumberOne</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Features-->
+<partial name="_Map" />
+@section bottom
+    {
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU0uc-KUAc29HmNH_mmoGpxN9J-bj3MEE&callback=initMap"></script>
+    <script src="~/side/js/index.js"></script>
+    <script src="~/side/js/Map.js"></script>
+}

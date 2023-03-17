@@ -1,0 +1,24 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    
+    <script src="Side/js/jquery.js"></script>
+    <script>
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyCxSXAWI2evL5v0pOh_-V8ZOqQ3FqsTRQk",
+            data: {},
+            method: 'GET',
+            dataType: "json",
+            success: function (e) {
+                console.log(e);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+            //
+    </script>
+</body>
+</html>

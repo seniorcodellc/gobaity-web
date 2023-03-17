@@ -1,0 +1,253 @@
+﻿@using YallaBaity.Resources
+
+@{
+    ViewBag.Title = AppResource.lbProfilePersonly;
+}
+
+<div class="container Profile">
+    <h2 class="mt-30">@AppResource.lbProfilePersonly</h2>
+    <div class="row mb-100 mt-30">
+        <div class="col-12 col-sm-4 mb-100">
+            <div class="NavFilter">
+                <ul id="ProfileMenu">
+                    <li class="active" data-target="#AccountInfo">  @AppResource.lbProfilePersonly</li>
+                    <li data-target="#Address">@AppResource.lbAddresses</li>
+                    <li data-target="#Orders">@AppResource.lbMyOrders</li>
+
+                    @if (User.Claims.SingleOrDefault(x => x.Type == "isProvider").Value == "True")
+                    {
+                        <li data-target="#MyFoods"> @AppResource.lbMyFoods</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-sm-8">
+            <div class="ProfileTaps">
+                <div id="AccountInfo" class="active">
+                    <div class="form-group text-center">
+                        <div class="ImageProfileContainer">
+                            <img src="~/side/imgs/user-profile.png" id="ImageProfileImg" title="@AppResource.lbAddAProfilePicture" />
+                        </div>
+                        <input type="file" hidden id="ImageProfile" />
+                    </div>
+
+                    <div id="UserInputs">
+                        <div class="form-group">
+                            <label>@AppResource.lbName  </label>
+                            <input placeholder="@AppResource.lbName" id="txtAccountUserName" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>@AppResource.lbPhone  </label>
+                            <input placeholder="@AppResource.lbPhone" id="txtAccountPhone" readonly="readonly" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>@AppResource.lbGender</label>
+                        <div class="flex">
+                            <div class="RadioButton">
+                                <span data-for="txtUserProfileGenderMale" data-name-for="AccountGender" class="active"></span>
+                                <input type="radio" name="RegisterGender" id="txtUserProfileGenderMale" checked hidden />
+                                <h3>@AppResource.lbMale</h3>
+                                &nbsp;
+                                &nbsp;
+                            </div>
+
+                            <div class="RadioButton">
+                                <span data-for="txtUserProfileGenderFMale" data-name-for="AccountGender"></span>
+                                <input type="radio" name="RegisterGender" id="txtUserProfileGenderFMale" hidden />
+                                <h3>@AppResource.lbFemale</h3>
+                                &nbsp;
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ProviderInputs" id="ProviderInputs" style="display:none">
+                        <div class="form-group">
+                            <select id="ddlUserProfileGovernorate" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"> </select>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea id="txtUserProfileAddress" class="input-style" placeholder="@AppResource.lbAddress" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"></textarea>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button class="button-style button-style2 btn-lg" onclick="target='userProfile';OpenModel();">@AppResource.lbAddLocation</button>
+                        </div>
+                        <div class="form-group" hidden="hidden" id="AddUserProfileLocationMsg">
+                            <p class="text-success">@AppResource.lbTheLocationHasBeenAdded</p>
+                        </div>
+                        <input id="UserProfileLocation" type="hidden" />
+                        <input id="UserProfileLatitude" type="hidden" />
+                        <input id="UserProfileLongitude" type="hidden" />
+                        <input id="UserProfileIsProvider" type="hidden" />
+                    </div>
+
+                    <div class="text-center">
+                        <button class="button-style btn-lg mt-30" onclick="SaveUserProfile()">@AppResource.lbSave</button>
+
+                        <div class="form-group mt-30">
+                            <button class="lnk" data-toggle="modal" data-target="#ChangePasswordModal">@AppResource.lbChangeMyPassword</button>
+                        </div>
+
+                        <div class="form-group mt-30">
+                            <button class="lnk">@AppResource.lbChangeMyPhone</button>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="ChangePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ChangePasswordModalTitle">@AppResource.lbChangeMyPassword</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-row" id="ChangePasswordForm">
+                                        <div class="form-group col-12">
+                                            <input placeholder="@AppResource.lbOldPassword" id="txtOldPassword" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbNewPassword" id="txtNewPassword" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbConfirmPassword" id="txtConfirmPassword" class="input-style" data-valueby="txtConfirmPassword" data-valueby-operator="=" data-valueby-message="@AppResource.lbTheTwoPasswordsDoNotMatch" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@AppResource.lbClose</button>
+                                    <button type="button" class="btn btn-primary" id="btnChangePassword" onclick="ChangePassword()">
+                                        @AppResource.lbSave
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Address">
+                    <div class="form-group">
+                        <button class="button-style mt-30" onclick="AddAddreses()">@AppResource.lbAdd</button>
+                    </div>
+
+                    <div class="form-group">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">...</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">@AppResource.lbAddressName</th>
+                                    <th scope="col">@AppResource.lbApartmentNo</th>
+                                    <th scope="col">@AppResource.lbBuildingNo</th>
+                                    <th scope="col">@AppResource.lbStreet</th>
+                                    <th scope="col">@AppResource.lbFloorNo</th>
+                                    <th scope="col">@AppResource.lbAddress</th>
+                                </tr>
+                            </thead>
+                            <tbody id="UsersAddressList"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="UserAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="UserAddressModalTitle"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-row" id="UserAddressesForm">
+                                        <input type="hidden" id="hdUsersAddressId" value="0" />
+                                        <div class="form-group col-12">
+                                            <input placeholder="@AppResource.lbAddressName" id="txtAddressName" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbStreet" id="txtStreet" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbBuildingNo" id="txtBuildingNo" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbApartmentNo" id="txtApartmentNo" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <input placeholder="@AppResource.lbFloorNo" id="txtFloorNo" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                                        </div>
+
+                                        <div class="form-group col-12">
+                                            <textarea placeholder="@AppResource.lbAddress" id="txtAddress" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"></textarea>
+                                        </div>
+
+                                        <div class="form-group col-12 text-center">
+                                            <input type="hidden" id="hdLng" />
+                                            <input type="hidden" id="hdLat" />
+                                            <button class="button-style button-style2 btn-lg" onclick="target='address';OpenModel()"> @AppResource.lbAddLocation  </button>
+                                        </div>
+
+                                        <div class="form-group" hidden="hidden" id="AddLocationMsg">
+                                            <p class="text-success">@AppResource.lbTheLocationHasBeenAdded</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@AppResource.lbClose</button>
+                                    <button type="button" class="btn btn-primary" id="btnSaveUserAddresses" onclick="SaveAddreses()">
+                                        @AppResource.lbSave
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Orders"> 
+                    <section class="Foods">
+                        <div class="FoodsList" id="MyOrdersList"> </div>
+                        <div class="FoodsPageing">
+                            <button class="PageBack"><i class="fas fa-angle-left"></i></button>
+                            <h6 class="txtPageNumber"></h6>
+                            <button class="PageNext"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="MyFoods">
+                    <section class="Foods">
+                        <div class="FoodsList" id="MyFoodsList"> </div>
+                        <div class="FoodsPageing">
+                            <button class="PageBack"><i class="fas fa-angle-left"></i></button>
+                            <h6 class="txtPageNumber"></h6>
+                            <button class="PageNext"><i class="fas fa-angle-right"></i></button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<partial name="_Map" />
+@section bottom
+    {
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU0uc-KUAc29HmNH_mmoGpxN9J-bj3MEE&callback=initMap"></script>
+    <script src="~/side/js/profile.js"></script>
+    <script src="~/side/js/Map.js"></script>
+}

@@ -1,0 +1,43 @@
+﻿@using YallaBaity.Resources
+@{
+    ViewBag.Title = AppResource.lbCart;
+} 
+<!--Start Foods-->
+<section class="Foods">
+    <div class="container">
+        <h3 class="Title">@AppResource.lbCart</h3>
+        <div class="FoodsList" id="FoodsList"> </div>
+        <div class="FoodsPageing">
+            <button class="PageBack"><i class="fas fa-angle-left"></i></button>
+            <h6 class="txtPageNumber"></h6>
+            <button class="PageNext"><i class="fas fa-angle-right"></i></button>
+        </div>
+    </div>
+</section>
+<!--End Foods-->
+<!--Start Payment-->
+<section class="Payment mb-100 mt-100">
+    <div>
+        <div>
+            <span>@AppResource.lbTotal</span>
+            <span id="txtTotal"> </span>
+        </div>
+
+        <div>
+            <span>@AppResource.lbDelivery</span>
+            <span id="txtDelivery"> </span>
+        </div>
+
+        <div>
+            <span>@AppResource.lbNet</span>
+            <span id="txtNet"> </span>
+        </div>
+    </div>
+    <button class="button-style btn-lg" onclick="CompleatOrder()">@AppResource.lbCompleteTheOrder</button>
+</section>
+<!--End Payment-->
+
+@section bottom
+{
+    <script src="~/side/js/Cart.js"></script>
+}

@@ -1,0 +1,71 @@
+﻿<div class="modal fade" id="FormModel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="userId">@AppResource.lbCode</label>
+                        <input type="text" readonly class="form-control" id="userId" placeholder=" @AppResource.lbCode">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="userName">@AppResource.lbName</label>
+                        <input type="text" readonly class="form-control" id="userName" placeholder="@AppResource.lbName">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="password"> @AppResource.lbPassword</label>
+                        <input type="text" readonly class="form-control" id="password" placeholder="@AppResource.lbPassword">
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="phone"> @AppResource.lbPhone</label>
+                        <input type="text" readonly class="form-control" id="phone" placeholder="@AppResource.lbPassword">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="address"> @AppResource.lbAddress</label>
+                        <textarea class="form-control" readonly id="address" placeholder="@AppResource.lbAddress"></textarea>
+                    </div>
+
+                    <div class="form-group col-md-6 providerField">
+                        <label for="governorate"> @AppResource.lbGovernorate</label>
+                        <textarea class="form-control" readonly id="governorate" placeholder="@AppResource.lbGovernorate"></textarea>
+                    </div>
+
+                    <div class="form-group col-md-6 form-row text-center providerField">
+                        <label for="nationalIdcardFace" class="col-md-12"> @AppResource.lbNationalCardFace</label>
+                        <img src="/assets/images/faces/face1.jpg" class="col-md-12 mx-h-150" id="nationalIdcardFace" />
+                    </div>
+
+                    <div class="form-group col-md-6  form-row text-center providerField">
+                        <label for="nationalIdcardBack" class="col-md-12"> @AppResource.lbNationalCardBack</label>
+                        <img src="/assets/images/faces/face1.jpg" class="col-md-12 mx-h-150" id="nationalIdcardBack" />
+                    </div>
+
+                    <div class="form-group col-md-6 form-row text-center">
+                        <label for="image" class="col-md-12"> @AppResource.lbImage</label>
+                        <img src="/assets/images/faces/face1.jpg" class="col-md-12 mx-h-150" id="image" />
+                    </div>
+
+                    <div class="form-group col-md-12 form-row text-center providerField">
+                        <label for="location" class="col-md-12"> @AppResource.lbLocation</label>
+                        <iframe id="location" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d27160.536091021044!2d31.13082422455232!3d29.97606821541998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2seg!4v1662307675346!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>   
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@AppResource.lbClose</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div> 

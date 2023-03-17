@@ -1,0 +1,89 @@
+﻿@using YallaBaity.Resources
+@{
+    ViewBag.Title = AppResource.lbAccount; 
+}
+
+<div class="SignIn">
+    <div class="SignInForm">
+        <img src="~/side/imgs/gobaity.png" />
+        <div id="SignInRegister">
+            <h3 class="mtb-60 text-center">@AppResource.lbCreateAnAccount</h3>
+            <div class="form-group input-group">
+                <input placeholder="02" class="input-style" />
+                <input placeholder="@AppResource.lbPhone" id="txtRegisterPhone" class="input-style" data-regex="^01\d{9}$" data-regex-message="@AppResource.lbIncorrectPhoneFormat" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+            </div>
+            <div class="form-group">
+                <input placeholder="@AppResource.lbName" id="txtRegisterName" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+            </div>
+            <div class="form-group">
+                <input type="password" id="txtRegisterPassword" class="input-style" placeholder="@AppResource.lbPassword" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+                <button class="button-password" data-target="#txtRegisterPassword"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="form-group">
+                <label>@AppResource.lbGender</label>
+                <div class="flex">
+                    <div class="RadioButton">
+                        <span data-for="txtRegisterGenderMale" data-name-for="AccountGender" class="active"></span>
+                        <input type="radio" name="RegisterGender" id="txtRegisterGenderMale" checked hidden />
+                        <h3>@AppResource.lbMale</h3>
+                        &nbsp;
+                        &nbsp;
+                    </div>
+
+                    <div class="RadioButton">
+                        <span data-for="txtRegisterGenderFmale" data-name-for="AccountGender"></span>
+                        <input type="radio" name="RegisterGender" id="txtRegisterGenderFmale" hidden />
+                        <h3>@AppResource.lbFemale</h3>
+                        &nbsp;
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="button-style btn-lg" id="btnRegister">@AppResource.lbRegisterNow</button>
+                <p>@AppResource.lbDoYouHaveAnAccount <u id="lnkOpenLogin">@AppResource.lbLogin</u></p>
+            </div>
+
+        </div>
+        <div id="SignInLogin">
+            <h3 class="mtb-60 text-center"> @AppResource.lbLogin</h3>
+            <div class="form-group input-group">
+                <input placeholder="02" class="input-style" />
+                <input placeholder=" @AppResource.lbPhone" id="txtLoginPhone" class="input-style" data-regex="^01\d{9}$" data-regex-message="@AppResource.lbIncorrectPhoneFormat" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+            </div>
+            <div class="form-group">
+                <input type="password" id="txtLoginPassword" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" placeholder=" @AppResource.lbPassword" />
+                <button class="button-password" data-target="#txtLoginPassword"><i class="fas fa-eye"></i></button>
+            </div>
+
+            <div class="text-center">
+                <button class="button-style btn-lg" id="btnLogin"> @AppResource.lbLogin</button>
+                <p> @AppResource.lbDontHaveAnAccount <u id="lnkOpenRegister">  @AppResource.lbRegisterNow</u></p>
+            </div>
+        </div>
+        <div id="SignInConfirmCode">
+            <h3 class="mtb-60 text-center">  @AppResource.lbPleaseEnterTheConfirmationNumber</h3>
+
+            <p class="text-center">@AppResource.lbEnterThe4DigitCode </p>
+            <div class="form-group input-group-equals confirmCode">
+                <input class="input-style integer" id="txtCode1" data-target="#txtCode2" />
+                <input class="input-style integer" id="txtCode2" data-target="#txtCode3" />
+                <input class="input-style integer" id="txtCode3" data-target="#txtCode4" />
+                <input class="input-style integer" id="txtCode4" />
+            </div>
+
+            <div class="text-center">
+                <button class="button-style btn-lg" id="btnConfirm">@AppResource.lbConfirm</button>
+                <p> <u id="lnkSendOTP">  @AppResource.lbSendOTPAgain</u></p>
+            </div>
+        </div>
+    </div>
+
+    <img class="hidden-xs hidden-sm hidden-md hidden-lg SignInBackground" src="~/side/imgs/account.png" />
+</div>
+
+@section bottom
+    {
+    <script src="~/side/js/account.js"></script>
+}

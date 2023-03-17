@@ -1,0 +1,182 @@
+﻿@using System.Globalization
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="SAS">
+    <meta name="keywords" content="SAS, Hotal">
+    <meta name="author" content="Dt4it">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GoBaity - @ViewBag.Title</title>
+
+    <script src="~/side/js/jquery.js"></script>
+
+    <!--FontAwsome-->
+    <link href="~/side/css/all.min.css" rel="stylesheet" />
+    <!--FontAwsome-->
+    <link href="~/side/css/normalize.css" rel="stylesheet" />
+    <link href="~/side/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!--OwlCarousel-->
+    <link href="~/side/css/owlcarousel/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/side/css/owlcarousel/owl.theme.default.min.css" rel="stylesheet" />
+    <script src="~/side/js/owlcarousel/owl.carousel.min.js"></script>
+    <!--OwlCarousel-->
+    <!--style-->
+    <link href="~/side/css/MainStyle.css" rel="stylesheet" />
+    <!--style--> 
+    <!--Select2-->
+    <link href="~/side/css/select2.min.css" rel="stylesheet" />
+    <script src="~/side/js/select2.min.js"></script>
+    <!--Select2--> 
+    <!--sweetalert2-->
+    <link href="~/assets/vendors/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    <!--sweetalert2-->
+    <!--DatePicker-->
+    <link rel="stylesheet" href="~/side/css/simplepicker.css">
+   
+    <!--DatePicker-->
+    @RenderSection("head",false)
+</head>
+<body class="@(CultureInfo.CurrentUICulture.Name=="ar"?"rtl":"")">
+    @{
+        string userId = "";
+        string isProvider = "";
+        bool isAuthenticated = false;
+        if (User.Identity.IsAuthenticated)
+        {
+            userId = User.Claims.SingleOrDefault(x => x.Type == "userId")?.Value;
+            isProvider = User.Claims.SingleOrDefault(x => x.Type == "isProvider")?.Value;
+            isAuthenticated = true;
+        }
+    }
+
+    <input type="hidden" id="userId" value="@userId" />
+    <input type="hidden" id="isProvider" value="@isProvider" />
+    <input type="hidden" id="isAuthenticated" value="@isAuthenticated.ToString()" />
+      
+    <!--Start Nav-->
+    <nav class="MainNav" id="MainNav">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-sm-6 col-md-2">
+                    <a href="/Home"><img class="img-responsive" src="~/side/imgs/NewLogo.png" style="max-height:50px;" /></a>
+                </div>
+                <div class="col-12 col-md-6">
+                    <ul class="MainNavLinks inlineList">
+                        <li><a href="#"> @AppResource.lbWhyGoBaity</a></li>
+                        <li class="LinkDropDown">
+                            <a href="#" data-target=".NavBarCategories" class="open-menu">@AppResource.lbCategories <i class="fas fa-angle-down"></i></a>
+                            <div class="MainNavDropdown NavBarCategories">
+                                @*Fill With Ajax API MainScript*@
+                                @*   <a href="/Foods/1/Chicken">
+                                <div>
+                                <img src="~/side/imgs/f1.jfif" class="img-responsive" />
+                                <h4>Chicken</h4>
+                                </div>
+                                </a>*@
+                            </div>
+                        </li>
+                        <li><a href="#"> @AppResource.lbContact</a></li>
+                    </ul>
+                </div>
+                <div class="col-8 col-sm-6 col-md-4">
+                    <ul class="MainNavControls inlineList">
+
+                        @if (!isAuthenticated)
+                        {
+                            <li><a href="/Account?target=login" class="LinkButton"><i class="fas fa-sign-in-alt"></i> @AppResource.lbLogin</a></li>
+                        }
+                        else
+                        {
+                            @if (isProvider == "True")
+                            {
+                                <li>
+                                    <a href="/Foods/Add" id="lnkAddFood"> @AppResource.lbAddAFood</a>
+                                </li>
+                            }
+                            <li><a href="/Orders/Cart" class="LinkBasket" data-count="" id="txtBasketCount"><i class="fas fa-shopping-bag"></i></a></li>
+                            <li>
+                                <button id="btnUserProfile" data-target=".UserProfileList" class="open-menu"><i class="fas fa-user-alt"></i> </button>
+                                <div class="UserProfileList">
+                                    <ul>
+                                        <li><a href="#"><span>My Wallet</span><span>500EGP  </span> </a></li>
+                                        <li><a href="/Account/Profile"><span>@AppResource.lbProfilePersonly</span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                        <li><a href="#"><span> Saved  </span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                        <li><a href="#"><span>Orders History  </span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                        <li><a href="/Account/JoinAsProvider"><span>@AppResource.lbJoinAsAProvider</span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                        <li><a href="/Home/SwitchLanguage"><span>@(CultureInfo.CurrentUICulture.Name == "ar" ? "English" : "عربي")</span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                        <li><a href="/Account/Logout"><span>@AppResource.lbLogout</span><span> <i class="fas fa-angle-right"></i>  </span> </a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        } 
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End Nav-->
+    <!--Start ContaintPage-->
+    <main>
+        @RenderBody()
+    </main>
+    <!--End ContaintPage -->
+    <!--Start Footer-->
+    <footer class="MainFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 center-xs center-sm">
+                    <div class="footer-information">
+                        <a href="#"><img src="~/side/imgs/NewLogo.png" class="img-responsive" /></a>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 center-xs center-sm">
+                    <ul>
+                        <li><b> @AppResource.lbAbout  </b></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Features</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-3 center-xs center-sm">
+                    <ul id="footerCategories">
+                        <li><b>@AppResource.lbCategories</b></li> 
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-3 center-xs center-sm">
+                    <ul>
+                        <li><b>@AppResource.lbAccount</b></li>
+                        <li><a href="/Account/Profile">@AppResource.lbProfilePersonly</a></li>
+                        <li><a href="/Orders/Cart">@AppResource.lbCart</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--End Footer-->
+    <!--Languages-->
+    <script src="~/Languages/lang.js"></script>
+    <!--Languages-->
+    <!--owlcarousel-->
+    <script src="~/side/js/owlcarousel/highlight.js"></script>
+    <script src="~/side/js/owlcarousel/app.js"></script>
+    <!--owlcarousel-->
+    <!--bootstrap-->
+    <script src="~/side/js/bootstrap.bundle.min.js"></script>
+    <!--bootstrap-->
+    <!--sweetalert-->
+    <script src="~/assets/vendors/sweetalert/sweetalert2.all.min.js"></script>
+    <!--sweetalert-->
+    <script src="~/side/js/simplepicker.js"></script>
+    <script src="~/common.js"></script>
+    <script src="~/side/js/MainScript.js"></script>
+    @RenderSection("bottom",false)
+</body>
+</html>

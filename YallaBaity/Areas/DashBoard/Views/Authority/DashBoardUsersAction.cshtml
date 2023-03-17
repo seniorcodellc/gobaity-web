@@ -1,0 +1,46 @@
+﻿ <div class="modal fade" id="FormModel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <input type="hidden" id="userId" value="0" />
+                <div class="form-group">
+                    <label for="userName">@AppResource.lbName</label>
+                    <input type="text" class="form-control" id="userName" placeholder="@AppResource.lbName" data-remote="/api/DashBoardUsers/HasName" data-remote-message="@AppResource.lbThisNameIsAlreadyRegistered" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+                <div class="form-group">
+                    <label for="email">@AppResource.lbEmail</label>
+                    <input type="text" class="form-control" id="email" placeholder="@AppResource.lbEmail" data-remote="/api/DashBoardUsers/HasEmail" data-remote-message="@AppResource.lbThisEmailIsAlreadyRegistered" data-regex="^[a-zA-Z]([a-zA-Z0-9_\-\.]+)@@([a-zA-Z_\-]+)\.([a-zA-Z]{2,5})$" data-regex-message="@AppResource.lbEmailFormatIsInvalidMsg" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+                <div class="form-group">
+                    <label for="password">@AppResource.lbPassword</label>
+                    <input type="password" class="form-control" id="password" placeholder="@AppResource.lbPassword" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-group">
+                    <label for="groupId">@AppResource.lbGroup</label>
+                    <select class="form-control select2" id="groupId" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"> </select>
+                </div>
+
+                <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                        <input id="isActive" type="checkbox" class="form-check-input">
+                        @AppResource.lbActive
+                        <i class="input-helper"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@AppResource.lbClose</button>
+                <button type="button" class="btn btn-primary" onclick="Save()">@AppResource.lbSave</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div> 

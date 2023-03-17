@@ -1,0 +1,64 @@
+﻿<div class="modal fade" id="FormModel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="categoryId" value="0" />
+                <div class="form-group">
+                    <label for="categoryAname">@AppResource.lbArabicName</label>
+                    <input type="text" class="form-control" id="categoryAname" placeholder=" @AppResource.lbName" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryEname">@AppResource.lbEnglishName</label>
+                    <input type="text" class="form-control" id="categoryEname" placeholder=" @AppResource.lbName" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryAdescription">@AppResource.lbArabicDescription</label>
+                    <input type="text" class="form-control" id="categoryAdescription" placeholder=" @AppResource.lbArabicDescription" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryEdescription">@AppResource.lbEnglishDescription</label>
+                    <input type="text" class="form-control" id="categoryEdescription" placeholder=" @AppResource.lbEnglishDescription" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-group">
+                    <label for="backgroundColor">@AppResource.lbBackgroundColor</label>
+                    <input type="color" class="form-control" id="backgroundColor" placeholder=" @AppResource.lbName" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+                
+                <div class="form-group">
+                    <label>@AppResource.lbImage</label>
+                    <div class="input-group col-xs-12">
+                        <input type="text" id="imagePathInput" class="form-control file-upload-info" disabled="" placeholder="@AppResource.lbUploadImage">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" id="imagePathButton" type="button"> @AppResource.lbUpload </button>
+                        </span>
+                    </div>
+                    <input type="file" id="imagePath" name="img[]" class="file-upload-default" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg">
+                </div>
+
+                <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                        <input id="isActive" type="checkbox" class="form-check-input">
+                        @AppResource.lbActive
+                        <i class="input-helper"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@AppResource.lbClose</button>
+                <button type="button" class="btn btn-primary" onclick="Save()">@AppResource.lbSave</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div> 

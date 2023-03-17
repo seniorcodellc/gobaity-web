@@ -1,0 +1,130 @@
+﻿
+.content-wrapper {
+    height: 100vh;
+}
+
+.text-invalid {
+    color: #ff0000
+}
+
+select.is-invalid {
+    border-width: 1px;
+    border-style: solid;
+    color: #fff
+}
+
+.mx-h-150 {
+    max-height: 150px
+}
+
+.form-control[type=color] {
+    height: 35.2px;
+}
+
+body.rtl .modal-header .close {
+    margin: -25px auto -25px -26px;
+}
+
+
+body.rtl .pagination {
+    justify-content: end;
+}
+
+
+@font-face {
+    font-family: 'GE_SS_Two_Bold';
+    src: url('../../fonts/fonts-ar/GE_SS_Two_Bold.otf') format('OpenType');
+}
+
+@font-face {
+    font-family: 'GESSTwoMedium';
+    src: url('../../fonts/fonts-ar/GESSTwoMedium.otf') format('OpenType');
+}
+
+
+
+body.rtl   {
+    font-family: "GESSTwoMedium";
+}
+
+    body.rtl h1, body.rtl h2, body.rtl h3, body.rtl h4, body.rtl h5, body.rtl h6,
+    body.rtl .h1, body.rtl .h2, body.rtl .h3, body.rtl .h4, body.rtl .h5, body.rtl .h6 {
+        font-family: "GESSTwoMedium";
+    } 
+
+body.rtl .font-weight-light,
+body.rtl .font-weight-medium,
+body.rtl .badge,
+body.rtl code,
+body.rtl .footer,
+body.rtl .card .card-subtitle,
+body.rtl .card .card-title,
+body.rtl .card .card-description,
+body.rtl .btn,
+body.rtl .fc button,
+body.rtl .ajax-upload-dragdrop .ajax-file-upload,
+body.rtl .form-control,
+body.rtl .select2-container--default .select2-selection--single,
+body.rtl .select2-container--default .select2-selection--single .select2-search__field,
+body.rtl .typeahead,
+body.rtl .tt-query,
+body.rtl .tt-hint,
+body.rtl .icons-list > div,
+body.rtl .table thead th,
+body.rtl .nav-tabs.nav-tabs-vertical-custom .nav-link,
+body.rtl .avgrund-popin,
+body.rtl .avgrund-popin p,
+body.rtl .CodeMirror,
+body.rtl .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
+body.rtl .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow,
+body.rtl .fc button,
+body.rtl .settings-panel .settings-heading,
+body.rtl .navbar,
+body.rtl .sidebar,
+body.rtl .sidebar .nav .nav-item.active > .nav-link .menu-title {
+    font-family: "GESSTwoMedium";
+}
+
+
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.next, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.prev, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.datepicker-switch, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.dow,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-months .table-condensed thead tr th.next,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-months .table-condensed thead tr th.prev,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-months .table-condensed thead tr th.datepicker-switch,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-months .table-condensed thead tr th.dow,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-years .table-condensed thead tr th.next,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-years .table-condensed thead tr th.prev,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-years .table-condensed thead tr th.datepicker-switch,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-years .table-condensed thead tr th.dow,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-decades .table-condensed thead tr th.next,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-decades .table-condensed thead tr th.prev,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-decades .table-condensed thead tr th.datepicker-switch,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-decades .table-condensed thead tr th.dow,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-centuries .table-condensed thead tr th.next,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-centuries .table-condensed thead tr th.prev,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-centuries .table-condensed thead tr th.datepicker-switch,
+body.rtl .datepicker-custom .datepicker.datepicker-inline .datepicker-centuries .table-condensed thead tr th.dow {
+    font-family: "GESSTwoMedium";
+}
+
+
+
+
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.1875rem;
+    border-bottom-right-radius: 0.1875rem;
+}
+
+.btn-group > .btn:not(:first-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0.1875rem;
+    border-bottom-left-radius: 0.1875rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

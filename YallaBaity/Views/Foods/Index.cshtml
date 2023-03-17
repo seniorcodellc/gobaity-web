@@ -1,0 +1,31 @@
+﻿@using YallaBaity.Resources
+@{
+    ViewBag.Title = AppResource.lbBrowseFoods;
+}
+ 
+<h4 class="text-center mt-20"> @AppResource.lbDeliverTo : <u id="txtDeliveryto"></u></h4>
+
+<!--Start Banner-->
+<section class="FoodBanner">
+    <div class="owl-carousel owl-theme" id="ads-banner"></div>
+</section>
+<!--End Banner-->
+<!--Start Food-->
+<partial name="_Food" model="0"></partial>
+<!--End Food-->
+<input type="hidden" id="categoryId" value="@ViewBag.CategoryId" />
+@section bottom
+{
+    <script src="~/side/js/Foods.js"></script>
+    <script>
+        Ajax.GET(`/api/Ads`, {}, (data) => {
+            $.each(data.data, function (index, row) {
+                $('#ads-banner').append(TemplatesHTML.AdsHTML(row.adsImage));
+            });
+
+            $('.FoodBanner .owl-carousel').owlCarousel({ margin: 0, nav: false, loop: true, dots: true, rtl: $('body').hasClass('rtl'), responsive: { 0: { items: 1 } } })
+        }, () => { Alert.Error() });
+    </script>
+}
+
+ 

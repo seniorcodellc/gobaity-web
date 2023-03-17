@@ -1,0 +1,47 @@
+﻿
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"> @AppResource.lbGroupPermission</h4>
+
+      <div class="row">
+          <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label for="group">@AppResource.lbGroup</label>
+                    <select id="group" class="form-control"></select>
+                </div>
+          </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label for="tab">@AppResource.lbTab</label>
+                    <select id="tab" class=" form-control"></select>
+                </div>
+            </div> 
+      </div>
+      
+        <table id="tblData" class="table table-bordered table-striped ">
+            <thead>
+                <tr>
+                    <th>@AppResource.lbSerial</th>
+                    <th>@AppResource.lbName</th>
+                    <th>...</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <th>@AppResource.lbSerial</th>
+                    <th>@AppResource.lbName</th>
+                    <th>...</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+ 
+
+@section Scripts
+{
+    <script src="~/pages/authority/GroupPermission.js"></script> 
+}
+

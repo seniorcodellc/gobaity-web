@@ -1,0 +1,49 @@
+﻿<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<h3>
+    <b>Order Count:</b>
+    <span id="txtOrderCount"></span>
+</h3>
+<button id="btnIncrease">Increase</button>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@section bottom
+    {
+
+    <script src="/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/providerHubs").build();
+
+        connection.on('orderCountValue', function (value) {
+            $('#txtOrderCount').text(value);
+        });
+
+        connection.start().then(function () {
+            console.log('started');
+        }).catch(function (err) { console.log(err); })
+
+        $('#btnIncrease').click(function () {
+            connection.invoke('orderCount', 5).catch(function (err) { console.log(err); })
+        })
+    </script>
+}

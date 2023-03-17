@@ -1,0 +1,42 @@
+﻿@model int
+@{
+    ViewBag.Title = "ProviterFood";
+}
+
+<!--Start UserFoodBackground-->
+<section class="UserFoodBackground">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="UserFoodBackgroundForm">
+                    <div>
+                        <img src="~/side/imgs/usericonlg.png" />
+                    </div>
+                    <div>
+                        <h3>Mohamed’s</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                        <div class="StarsContainer">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <img src="~/side/imgs/proviterbackgroundicon.png" class="proviterbackgroundicon" />
+            </div>
+        </div>
+    </div>
+</section>
+<!--End UserFoodBackground-->
+ 
+<partial name="_Food" model="@Model"></partial>
+
+@section bottom
+{
+    <script src="~/side/js/Foods.js"></script>
+}
+

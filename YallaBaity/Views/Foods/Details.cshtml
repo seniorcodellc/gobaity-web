@@ -1,0 +1,77 @@
+﻿@model int
+@using YallaBaity.Resources
+@{
+    ViewBag.Title = AppResource.lbFoodDetails;
+}
+<input type="hidden" id="foodId" value="@Model" />
+<div class="container">
+    <!--Start FoodSlider-->
+    <section class="FoodSlider">
+        <div class="row">
+            <div class="col-12 col-md-7 selectedImageContainer">
+                <img class="img-responsive" id="FoodSliderSelectedImage" />
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="FoodSlider-Container" id="ImgSilderContainer"> </div>
+            </div>
+        </div>
+    </section>
+    <!--End FoodSlider-->
+    <!--Start FoodData-->
+    <section class="FoodData">
+        <h2 id="txtFoodName"></h2>
+        <h3 class="flex-center Title"><a href="#" id="lnkProvider"> </a>&nbsp;<img src="~/side/imgs/userIcon.png" /></h3>
+        <div class="Foods-Delivery">
+            <div>
+                <span id="txtDelivery">
+                    <i class="fas fa-truck"></i> 
+                </span>
+            </div>
+            <div>
+                <span>|</span>
+            </div>
+            <div>
+                <span id="txtStars">
+                    <i class="fas fa-star"></i> 
+                </span>
+            </div> 
+        </div>
+
+        <!--Start Categorys-->
+        <section class="FoodCategorys">
+            <h3>@AppResource.lbSizes</h3>
+            <div id="foodSizesContainer">  </div>
+        </section>
+        <!--End Categorys-->
+
+        <div class="mt-50 text-center">
+            <button class="button-style btn-lg" id="btnAddToCart">@AppResource.lbAddToCart</button>
+        </div>
+
+        <!--Start Taps-->
+        <section class="FoodsTaps">
+            <div class="Taps">
+                <div class="active" data-for="description">@AppResource.lbDescription</div>
+                <div data-for="reviews">@AppResource.lbReviews</div>
+                <div data-for="otherFoodsByUser" id="otherFoodTitle">@AppResource.lbOtherFoodFor</div>
+            </div>
+
+            <div class="TapContaint">
+                <div id="description" class="active">
+                    <div class="Tags" id="tagsContainer">
+                    </div>
+                    <p id="txtDescription"></p>
+                </div>
+                <div id="reviews"></div>
+                <div id="otherFoodsByUser"></div>
+            </div>
+        </section>
+        <!--End Taps-->
+    </section>
+    <!--End FoodData-->
+</div>
+
+@section bottom
+{
+    <script src="~/side/js/Details.js"></script>
+}

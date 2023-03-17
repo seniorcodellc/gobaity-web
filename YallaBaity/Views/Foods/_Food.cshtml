@@ -1,0 +1,56 @@
+﻿@model int
+@using YallaBaity.Resources
+
+<div class="container">
+    <input type="hidden" id="providerId" value="@Model" /> 
+    <div class="row">
+        <!--Start SearchBar-->
+        <section class="SearchBar col-12 col-sm-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+                        <div class="SearchTextContainer">
+                            <input type="search" id="txtSearch" value="" placeholder="@AppResource.lbSearch" />
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-12 flex-center">
+                        <div class="SearchSortingContainer" id="SearchSortingContainer">
+                            <b> @AppResource.lbSortBy:</b>
+                            <span class="SortItem active" data-value="">  @AppResource.lbLatest</span>
+                            <span>|</span>
+                            <span class="SortItem" data-value="mostPopular">  @AppResource.lbMostPopular</span>
+                            <span>|</span>
+                            <span class="SortItem" data-value="preparationTime">  @AppResource.lbDeliveryTime</span>
+                            <span>|</span>
+                            <span class="SortItem" data-value="rate">@AppResource.lbRating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End SearchBar-->
+
+        <div class="col-12 col-sm-3">
+            <div class="NavFilter">
+                <ul id="CategoriesFilter">
+                    <li   data-value="-1">@AppResource.lbAll</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-sm-9">
+            <!--Start Foods-->
+            <section class="Foods">
+                <div class="container">
+                    <div class="FoodsList" id="FoodsList"></div>
+                    <div class="FoodsPageing">
+                        <button class="PageBack"><i class="fas fa-angle-left"></i></button> 
+                        <h6 id="txtPageNumber"></h6>
+                        <button class="PageNext"><i class="fas fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </section>
+            <!--End Foods-->
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <DocumentationFile>/swagger/v1/swagger.json</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\Food.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="ImageProcessor" Version="2.9.1" />
+    <PackageReference Include="ImageProcessor.Plugins.WebP" Version="1.3.0" />
+    <PackageReference Include="ImageProcessor.Web" Version="4.12.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\AppResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\AppResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Foods\1\" />
+    <Folder Include="wwwroot\Uploads\Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\DashBoard\Views\Account\EditPassword.cshtml" />
+    <None Include="Areas\DashBoard\Views\Account\Login.cshtml" />
+    <None Include="Areas\DashBoard\Views\Authority\DashBoardUsers.cshtml" />
+    <None Include="Areas\DashBoard\Views\Authority\DashBoardUsersAction.cshtml" />
+    <None Include="Areas\DashBoard\Views\Authority\GroupPermission.cshtml" />
+    <None Include="Areas\DashBoard\Views\Authority\Groups.cshtml" />
+    <None Include="Areas\DashBoard\Views\Authority\GroupsAction.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\Categorys.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\CategorysAction.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\FoodPending.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\Foods.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\FoodsAction.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\Sizes.cshtml" />
+    <None Include="Areas\DashBoard\Views\Foods\SizesAction.cshtml" />
+    <None Include="Areas\DashBoard\Views\Home\AccessDenied.cshtml" />
+    <None Include="Areas\DashBoard\Views\Home\Index.cshtml" />
+    <None Include="Areas\DashBoard\Views\Shared\Error.cshtml" />
+    <None Include="Areas\DashBoard\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\DashBoard\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\DashBoard\Views\Users\ProviderPending.cshtml" />
+    <None Include="Areas\DashBoard\Views\Users\Providers.cshtml" />
+    <None Include="Areas\DashBoard\Views\Users\Users.cshtml" />
+    <None Include="Areas\DashBoard\Views\Users\_UserView.cshtml" />
+    <None Include="Areas\DashBoard\Views\_ViewImports.cshtml" />
+    <None Include="Areas\DashBoard\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+</Project>

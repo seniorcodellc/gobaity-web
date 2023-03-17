@@ -1,0 +1,124 @@
+﻿@using YallaBaity.Resources
+@{
+    ViewBag.Title = AppResource.lbCompleteTheOrder;
+}
+
+<div class="container Checkout mt-30">
+    <h1> @AppResource.lbCompleteTheOrder</h1>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>@AppResource.lbAddresses</h5>
+                </div>
+                <div class="DeliveryAddress">
+
+                    
+
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">...</th>
+                                <th scope="col">#</th>
+                                <th scope="col">@AppResource.lbAddressName</th>
+                                <th scope="col">@AppResource.lbApartmentNo</th>
+                                <th scope="col">@AppResource.lbBuildingNo</th>
+                                <th scope="col">@AppResource.lbStreet</th>
+                                <th scope="col">@AppResource.lbFloorNo</th>
+                                <th scope="col">@AppResource.lbAddress</th>
+                            </tr>
+                        </thead>
+                        <tbody id="UsersAddressList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="card cartSummary">
+                <div class="card-header">
+                    <h5>@AppResource.lbCart</h5>
+                    <b id="cartCount">0</b>
+                </div>
+                <div class="card-body">
+                    <div id="CartList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="card PaymentDeliveryTime">
+                <div class="card-header">
+                    <h5> @AppResource.lbPaymentAndDeliveryTime</h5>
+                </div>
+                <div class="card-body">
+                    <b>@AppResource.lbDeliveryTime</b>
+                    <div class="flex-center mt-10">
+                        <div class="RadioButton">
+                            <span data-for="now" data-name-for="deliveryTime" class="active" id="now-span" onclick="DeliveryTimeNow()"></span>
+                            <input type="radio" name="deliveryTime" id="now" checked hidden>
+                            <p>@AppResource.lbNow</p>
+                        </div>
+
+                        <div class="RadioButton">
+                            <span data-for="scheduleOrder" data-name-for="deliveryTime" onclick="DeliveryTimeScheduleOrder()"></span>
+                            <input type="radio" name="deliveryTime" id="scheduleOrder" hidden>
+                            <input id="txtOrderHandDate" type="hidden" value="01/01/2000 12:00:00 PM" />
+                            <p>@AppResource.lbScheduleOrder</p>
+                        </div>
+                    </div>
+                    <div class="PaymentMethod">
+                        <b> @AppResource.lbPaymentMethod</b>
+                        <p>@AppResource.lbSelectYourPaymentMethod</p>
+                        <div>
+                            <div class="RadioButton">
+                                <span data-for="now" data-name-for="paymentMethod" class="active"></span>
+                                <input type="radio" name="paymentMethod" id="cash" checked hidden>
+                                <p> <img src="~/side/imgs/cash.png" /> @AppResource.lbCash</p>
+                            </div>
+
+                            <div class="RadioButton">
+                                <span data-for="debit" data-name-for="paymentMethod"></span>
+                                <input type="radio" name="paymentMethod" id="debit" hidden>
+                                <p><img src="~/side/imgs/card.png" />  @AppResource.lbDebitCreditCard</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <section class="Payment">
+                        <div>
+                            <div>
+                                <span>@AppResource.lbTotal</span>
+                                <span id="txtTotal"> </span>
+                            </div>
+
+                            <div>
+                                <span>@AppResource.lbDelivery</span>
+                                <span id="txtDelivery"> </span>
+                            </div>
+
+                            <div>
+                                <span>@AppResource.lbNet</span>
+                                <span id="txtNet"> </span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mb-100 mt-100 ">
+        <button class="button-style btn-lg" onclick="SaveOrder()"> @AppResource.lbCompleteTheOrder</button>
+    </div>
+</div>
+
+@section bottom
+{
+    <script src="~/side/js/checkout.js"></script>
+}

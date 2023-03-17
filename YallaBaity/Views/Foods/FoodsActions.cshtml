@@ -1,0 +1,61 @@
+﻿@using YallaBaity.Resources
+@model int
+ 
+
+<div class="container">
+    <div class="FoodsAction" id="FoodsAction">
+        <input id="foodId" value="@Model" type="hidden" />
+        <h3> @AppResource.lbAddAFood</h3>
+        <div class="form-group">
+            <input placeholder="@AppResource.lbName" id="txtTitle" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+        </div>
+
+        <div class="form-group">
+            <input placeholder="@AppResource.lbPrice" id="txtPrice" type="number" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+        </div>
+
+        <div class="form-group">
+            <input placeholder="@AppResource.lbPreparationTime" id="txtPreparationTime" type="number" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+        </div>
+
+        <div class="form-group">
+            <textarea placeholder="@AppResource.lbDescription" id="txtDescription" class="input-style" data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"></textarea>
+        </div>
+
+        <div class="form-group">
+            <p>بحد اقصي 5 صور</p>
+            <button class="button-style button-style2 btn-lg margin-auto" id="btnAddImages"> @AppResource.lbAddImages <i class="fas fa-plus"></i></button>
+            <input type="file" id="Images" multiple hidden data-requird="true" data-requird-message="@AppResource.lbRequirdMsg" />
+            <div id="ImagesContainer" class="mt-10"></div>
+        </div>
+
+
+        <div class="form-group mt-30">
+            <select class="select2" name="states[]" multiple="multiple" style="width:100%" id="ddlCategories" @*data-requird="true" data-requird-message="@AppResource.lbRequirdMsg"*@></select>
+        </div>
+
+        <div class="form-group mt-30" id="SizesContainer">
+            <label>@AppResource.lbSizes</label>
+            <div class="SizeItem">
+                <select class="input-style SizesId" onchange=" SizeChange(this)"> </select>
+                <textarea placeholder="@AppResource.lbDescription" class="input-style SizesDescription"></textarea>
+                <div>
+                    <input placeholder="@AppResource.lbPrice" type="number" value="0" min="0" class="input-style input-sm SizesPrices" />
+                    <b>ج.م</b>
+                </div>
+                <hr />
+            </div>
+        </div>
+
+        <button class="button-style button-style2  btn-lg margin-auto mt-30" id="btnAddSize"> @AppResource.lbAddAnotherSize <i class="fas fa-plus"></i></button>
+        <button class="button-style btn-lg mt-30 margin-auto button-loading" id="btnSave">
+            @AppResource.lbSave
+            <img src="/side/imgs/loading.gif" class="img-responsive">
+        </button>
+    </div>
+</div>
+
+@section bottom
+    {
+    <script src="~/side/js/FoodsActions.js"></script>
+}

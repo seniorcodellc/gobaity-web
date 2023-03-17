@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lbAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="lbAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="lbActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="lbAdd" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="lbAddAFood" xml:space="preserve">
+    <value>Add a food</value>
+  </data>
+  <data name="lbAddAnotherSize" xml:space="preserve">
+    <value>Add Another Size</value>
+  </data>
+  <data name="lbAddAProfilePicture" xml:space="preserve">
+    <value>Add a profile picture</value>
+  </data>
+  <data name="lbAddImages" xml:space="preserve">
+    <value>Add Images</value>
+  </data>
+  <data name="lbAddLocation" xml:space="preserve">
+    <value>Add Location</value>
+  </data>
+  <data name="lbAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="lbAddresses" xml:space="preserve">
+    <value>Addresses</value>
+  </data>
+  <data name="lbAddressName" xml:space="preserve">
+    <value>Address Name</value>
+  </data>
+  <data name="lbAddToCart" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="lbAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="lbAlreadyAddedToCart" xml:space="preserve">
+    <value>Already added to cart</value>
+  </data>
+  <data name="lbApartmentNo" xml:space="preserve">
+    <value>Apartment No</value>
+  </data>
+  <data name="lbArabicDescription" xml:space="preserve">
+    <value>Arabic Description</value>
+  </data>
+  <data name="lbArabicName" xml:space="preserve">
+    <value>Arabic Name</value>
+  </data>
+  <data name="lbAuthority" xml:space="preserve">
+    <value>Authority</value>
+  </data>
+  <data name="lbBackgroundColor" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="lbBestQuality" xml:space="preserve">
+    <value>Best Quality</value>
+  </data>
+  <data name="lbBeTheFastestInDeliveringYourFood" xml:space="preserve">
+    <value>Be The Fastest In Delivering Your Food</value>
+  </data>
+  <data name="lbBrowseFoods" xml:space="preserve">
+    <value>Browse foods</value>
+  </data>
+  <data name="lbBuildingNo" xml:space="preserve">
+    <value>Building No</value>
+  </data>
+  <data name="lbCart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="lbCash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="lbCategories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="lbCategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="lbCategorys" xml:space="preserve">
+    <value>Categorys</value>
+  </data>
+  <data name="lbChangeMyPassword" xml:space="preserve">
+    <value>Change my password</value>
+  </data>
+  <data name="lbChangeMyPhone" xml:space="preserve">
+    <value>Change my phone</value>
+  </data>
+  <data name="lbChosse" xml:space="preserve">
+    <value>-- Choose --</value>
+  </data>
+  <data name="lbClickToAddTheBackOfTheCard" xml:space="preserve">
+    <value>Click to add the back of the card</value>
+  </data>
+  <data name="lbClickToAddTheFrontOfTheCard" xml:space="preserve">
+    <value>Click to add the front of the card</value>
+  </data>
+  <data name="lbClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="lbCode" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="lbCompleteTheOrder" xml:space="preserve">
+    <value>Complete the order</value>
+  </data>
+  <data name="lbCompleteTheRequest" xml:space="preserve">
+    <value>Complete the request</value>
+  </data>
+  <data name="lbConfirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="lbConfirmLocation" xml:space="preserve">
+    <value>Confirm Location</value>
+  </data>
+  <data name="lbConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="lbContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="lbCreateAnAccount" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="lbCreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="lbDashBoardUsers" xml:space="preserve">
+    <value>DashBoard Users</value>
+  </data>
+  <data name="lbDebitCreditCard" xml:space="preserve">
+    <value>Debit/Credit Card</value>
+  </data>
+  <data name="lbDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="lbDeliverTo" xml:space="preserve">
+    <value>Deliver to</value>
+  </data>
+  <data name="lbDelivery" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="lbDeliveryDate" xml:space="preserve">
+    <value>Delivery Date</value>
+  </data>
+  <data name="lbDeliveryThatIsAlwaysOnTimeEvenFaster" xml:space="preserve">
+    <value>Delivery that is always on time even faster</value>
+  </data>
+  <data name="lbDeliveryTime" xml:space="preserve">
+    <value>Delivery Time</value>
+  </data>
+  <data name="lbDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="lbDiscoverBaityFood" xml:space="preserve">
+    <value>Discover Baity food wherever and whenever and get your food delivered quickly.</value>
+  </data>
+  <data name="lbDontHaveAnAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="lbDownloadApp" xml:space="preserve">
+    <value>Download App</value>
+  </data>
+  <data name="lbDoYouHaveAnAccount" xml:space="preserve">
+    <value>Do you have an account?</value>
+  </data>
+  <data name="lbEasyToOrder" xml:space="preserve">
+    <value>Easy To Order</value>
+  </data>
+  <data name="lbEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="lbEmailFormatIsInvalidMsg" xml:space="preserve">
+    <value>Email format is invalid</value>
+  </data>
+  <data name="lbEnglishDescription" xml:space="preserve">
+    <value>English Description</value>
+  </data>
+  <data name="lbEnglishName" xml:space="preserve">
+    <value>English  Name</value>
+  </data>
+  <data name="lbEnterThe4DigitCode" xml:space="preserve">
+    <value>Enter the 4-digit code</value>
+  </data>
+  <data name="lbEnterThePhoneCorrectly" xml:space="preserve">
+    <value>Enter the phone correctly</value>
+  </data>
+  <data name="lbError" xml:space="preserve">
+    <value>An error has occurred</value>
+  </data>
+  <data name="lbFastestDelivery" xml:space="preserve">
+    <value>Fastest Delivery</value>
+  </data>
+  <data name="lbFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="lbFloorNo" xml:space="preserve">
+    <value>Floor No</value>
+  </data>
+  <data name="lbFoodDetails" xml:space="preserve">
+    <value>Food details</value>
+  </data>
+  <data name="lbFoodPending" xml:space="preserve">
+    <value>Food Pending</value>
+  </data>
+  <data name="lbFoods" xml:space="preserve">
+    <value>Foods</value>
+  </data>
+  <data name="lbGender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="lbGetStartedWithGoBaityToday" xml:space="preserve">
+    <value>Get Started With Go Baity Today!</value>
+  </data>
+  <data name="lbGetTheApp" xml:space="preserve">
+    <value>Get The App</value>
+  </data>
+  <data name="lbGovernorate" xml:space="preserve">
+    <value>Governorate</value>
+  </data>
+  <data name="lbGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="lbGroupPermission" xml:space="preserve">
+    <value>Group Permission</value>
+  </data>
+  <data name="lbGroups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="lbHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="lbImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="lbIncorrectPhoneFormat" xml:space="preserve">
+    <value>Incorrect phone format</value>
+  </data>
+  <data name="lbIncorrectUsername" xml:space="preserve">
+    <value>Incorrect username</value>
+  </data>
+  <data name="lbItems" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="lbJoinAsAProvider" xml:space="preserve">
+    <value>Join as a provider</value>
+  </data>
+  <data name="lbLatest" xml:space="preserve">
+    <value>Latest</value>
+  </data>
+  <data name="lbLocation" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="lbLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="lbLogout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="lbMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="lbMinute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="lbMostPopular" xml:space="preserve">
+    <value>Most Popular</value>
+  </data>
+  <data name="lbMyFoods" xml:space="preserve">
+    <value>My foods</value>
+  </data>
+  <data name="lbMyOrders" xml:space="preserve">
+    <value>My orders</value>
+  </data>
+  <data name="lbName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lbNationalCardBack" xml:space="preserve">
+    <value>National card Back</value>
+  </data>
+  <data name="lbNationalCardFace" xml:space="preserve">
+    <value>National card Face</value>
+  </data>
+  <data name="lbNet" xml:space="preserve">
+    <value>Net</value>
+  </data>
+  <data name="lbNewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="lbNotOnlyFastForUsQualityIsAlsoNumberOne" xml:space="preserve">
+    <value>Not only fast for us quality is also number one</value>
+  </data>
+  <data name="lbNow" xml:space="preserve">
+    <value>Now</value>
+  </data>
+  <data name="lbOldPassword" xml:space="preserve">
+    <value>Old password</value>
+  </data>
+  <data name="lbOrderData" xml:space="preserve">
+    <value>Order Data</value>
+  </data>
+  <data name="lbOrderDate" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="lbOrderNumber" xml:space="preserve">
+    <value>Order Number</value>
+  </data>
+  <data name="lbOrderStatus" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
+  <data name="lbOtherFoodFor" xml:space="preserve">
+    <value>Other food for</value>
+  </data>
+  <data name="lbPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="lbPaymentAndDeliveryTime" xml:space="preserve">
+    <value>Payment and delivery time</value>
+  </data>
+  <data name="lbPaymentMethod" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="lbPersonalImage" xml:space="preserve">
+    <value>Personal Image</value>
+  </data>
+  <data name="lbPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="lbPleaseChooseTheSize" xml:space="preserve">
+    <value>Please choose the size</value>
+  </data>
+  <data name="lbPleaseCompleteTheInformation" xml:space="preserve">
+    <value>Please complete the information</value>
+  </data>
+  <data name="lbPleaseConfirmTheOTPCode" xml:space="preserve">
+    <value>Please confirm the OTP code</value>
+  </data>
+  <data name="lbPleaseEnterTheConfirmationNumber" xml:space="preserve">
+    <value>Please enter the confirmation number</value>
+  </data>
+  <data name="lbPleaseLoginFirst" xml:space="preserve">
+    <value>Please login first</value>
+  </data>
+  <data name="lbPleaseSignIn" xml:space="preserve">
+    <value>Please sign in</value>
+  </data>
+  <data name="lbPreparationTime" xml:space="preserve">
+    <value>Preparation Time</value>
+  </data>
+  <data name="lbPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="lbProfilePersonly" xml:space="preserve">
+    <value>Profile personly</value>
+  </data>
+  <data name="lbProviders" xml:space="preserve">
+    <value>Providers</value>
+  </data>
+  <data name="lbProvidersPending" xml:space="preserve">
+    <value>Provider Pending</value>
+  </data>
+  <data name="lbRating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="lbRegisterNow" xml:space="preserve">
+    <value>Register now</value>
+  </data>
+  <data name="lbRequirdMsg" xml:space="preserve">
+    <value>This field is requird</value>
+  </data>
+  <data name="lbReviews" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="lbSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="lbScheduleOrder" xml:space="preserve">
+    <value>Schedule Order</value>
+  </data>
+  <data name="lbSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="lbSelectYourPaymentMethod" xml:space="preserve">
+    <value>Select Your Payment Method</value>
+  </data>
+  <data name="lbSendOTPAgain" xml:space="preserve">
+    <value>Send OTP Again</value>
+  </data>
+  <data name="lbSerial" xml:space="preserve">
+    <value>Ser.</value>
+  </data>
+  <data name="lbSizes" xml:space="preserve">
+    <value>Sizes</value>
+  </data>
+  <data name="lbSortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="lbStartOrdering" xml:space="preserve">
+    <value>Start Ordering</value>
+  </data>
+  <data name="lbStreet" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="lbSubmitForReview" xml:space="preserve">
+    <value>Submit for review</value>
+  </data>
+  <data name="lbTab" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="lbTheLocationHasBeenAdded" xml:space="preserve">
+    <value>The location has been added</value>
+  </data>
+  <data name="lbTheOperationWasCompletedSuccessfully" xml:space="preserve">
+    <value>The operation was completed successfully</value>
+  </data>
+  <data name="lbTheOTPNumberIsIncorrect" xml:space="preserve">
+    <value>The OTP number is incorrect</value>
+  </data>
+  <data name="lbThePasswordIsIncorrect" xml:space="preserve">
+    <value>The password is incorrect</value>
+  </data>
+  <data name="lbThereAreNoFoodsInTheBasket" xml:space="preserve">
+    <value>There are no foods in the basket</value>
+  </data>
+  <data name="lbTheTwoPasswordsDoNotMatch" xml:space="preserve">
+    <value>The two passwords do not match</value>
+  </data>
+  <data name="lbThisAccountIsInactive" xml:space="preserve">
+    <value>This account is inactive</value>
+  </data>
+  <data name="lbThisEmailIsAlreadyRegistered" xml:space="preserve">
+    <value>This email is already registered</value>
+  </data>
+  <data name="lbThisNameIsAlreadyRegistered" xml:space="preserve">
+    <value>This name is already registered</value>
+  </data>
+  <data name="lbThisPhoneHasAlreadyBeenRegistered" xml:space="preserve">
+    <value>This phone has already been registered</value>
+  </data>
+  <data name="lbThisPhoneIsNotRegistered" xml:space="preserve">
+    <value>This phone is not registered</value>
+  </data>
+  <data name="lbThisRecordIsLinkedToOtherRecords" xml:space="preserve">
+    <value>This record is linked to other records</value>
+  </data>
+  <data name="lbThisUserIsNotAProvider" xml:space="preserve">
+    <value>This user is not a provider</value>
+  </data>
+  <data name="lbTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="lbUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="lbUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="lbUploadImage" xml:space="preserve">
+    <value>Upload image</value>
+  </data>
+  <data name="lbUserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="lbUsers" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="lbWelcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="lbWhyGoBaity" xml:space="preserve">
+    <value>Why go Baity</value>
+  </data>
+  <data name="lbYouHaveExceededTheMaximumNumberOfDailySubmissions" xml:space="preserve">
+    <value>You have exceeded the maximum number of daily submissions</value>
+  </data>
+  <data name="lbYouOnlyNeedAFewStepsInOrderingFood" xml:space="preserve">
+    <value>You only need a few steps in ordering food</value>
+  </data>
+</root>

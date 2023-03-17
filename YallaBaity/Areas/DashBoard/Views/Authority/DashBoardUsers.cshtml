@@ -1,0 +1,40 @@
+﻿
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@AppResource.lbUsers</h4>
+
+        <button type="button" class="btn btn-primary" onclick="OpenModel()">@AppResource.lbCreateNew</button>
+        <br />
+        <br />
+        <table id="tblData" class="table table-bordered table-striped ">
+            <thead>
+                <tr>
+                    <th>@AppResource.lbSerial</th>
+                    <th>@AppResource.lbName</th>
+                    <th>@AppResource.lbEmail</th>
+                    <th>@AppResource.lbGroup</th>
+                    <th>...</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <th>@AppResource.lbSerial</th>
+                    <th>@AppResource.lbName</th>
+                    <th>@AppResource.lbEmail</th>
+                    <th>@AppResource.lbGroup</th>
+                    <th>...</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<partial name="DashBoardUsersAction.cshtml"></partial>
+ 
+@section Scripts
+{
+    <script src="~/pages/authority/DashBoardUsers.js"></script>
+    <script src="~/pages/authority/DashBoardUsersaction.js"></script>
+}
+

@@ -1,0 +1,6 @@
+﻿ Scaffold-DbContext "Server=DESKTOP-8V47LUC\SQLEXPRESS;Database=YallaBaityDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+
+
+
+
+ CREATE DATABASE YallaBaityDB COLLATE Arabic_CI_AS;  
