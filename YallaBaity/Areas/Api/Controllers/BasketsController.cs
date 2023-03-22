@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using YallaBaity.Areas.Api.Dto;
 using YallaBaity.Areas.Api.Repository;
+using YallaBaity.Areas.Api.ViewModel;
 using YallaBaity.Models;
 using YallaBaity.Resources;
 
@@ -20,12 +21,15 @@ namespace YallaBaity.Areas.Api.Controllers
         IBaseRepository<Basket> _basket;
         IBaseRepository<BasketSize> _basketSize;
         IBaseRepository<VwBasket> _vwBasket;
-        public BasketsController(IBaseRepository<Basket> basket, IBaseRepository<VwBasket> vwBasket, IBaseRepository<BasketSize> basketSize, IMapper mapper)
+        IBaseRepository<Food> _food;
+        public BasketsController(IBaseRepository<Basket> basket, IBaseRepository<VwBasket> vwBasket, IBaseRepository<BasketSize> basketSize, IMapper mapper,
+           IBaseRepository<Food> food)
         {
             _basket = basket;
             _vwBasket = vwBasket;
             _mapper = mapper;
             _basketSize = basketSize;
+            _food = food;
         }
 
         [HttpPost("{userId}/[controller]")]
@@ -33,38 +37,48 @@ namespace YallaBaity.Areas.Api.Controllers
         {
             try
             {
-                Basket basket = new() { FoodId = model.FoodId, UserId = userId };
-                basket.BasketSizes = _mapper.Map<List<BasketSize>>(model.BasketSizes);
-
-                if (_basket.Any(x => x.UserId == userId && x.FoodId == model.FoodId))
+                var user_basket_items = new List<Basket>();
+                user_basket_items = _basket.GetAll(c => c.UserId == userId && _food.GetElement(c.FoodId).UserId != _food.GetElement(model.FoodId).UserId).ToList();
+                if(user_basket_items.Count() == 0)
                 {
-                    int basketId = _basket.Find(x => x.UserId == userId && x.FoodId == model.FoodId).BasketId;
+                    Basket basket = new() { FoodId = model.FoodId, UserId = userId };
+                    basket.BasketSizes = _mapper.Map<List<BasketSize>>(model.BasketSizes);
 
-                    _basketSize.RemoveRange(_basketSize.GetAll(x => x.BasketId == basketId));
-                    _basketSize.Save();
-
-
-                    List<BasketSize> basketSizes = basket.BasketSizes.ToList();
-
-                    for (int i = 0; i < basketSizes.Count; i++)
+                    if (_basket.Any(x => x.UserId == userId && x.FoodId == model.FoodId))
                     {
-                        basketSizes[i].BasketId = basketId;
+                        int basketId = _basket.Find(x => x.UserId == userId && x.FoodId == model.FoodId).BasketId;
+
+                        _basketSize.RemoveRange(_basketSize.GetAll(x => x.BasketId == basketId));
+                        _basketSize.Save();
+
+
+                        List<BasketSize> basketSizes = basket.BasketSizes.ToList();
+
+                        for (int i = 0; i < basketSizes.Count; i++)
+                        {
+                            basketSizes[i].BasketId = basketId;
+                        }
+
+                        _basketSize.AddRange(basketSizes);
+
+                        _basket.Save();
+
+                    }
+                    else
+                    {
+
+                        _basket.Add(basket);
                     }
 
-                    _basketSize.AddRange(basketSizes);
-
                     _basket.Save();
+                    return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = _basket.Count(x => x.UserId == userId) });
 
                 }
                 else
                 {
-
-                    _basket.Add(basket);
+                    return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = "Not Allowed To Order From Another Chef Until Your Basket Is Full, Please Check Out Your Basket First...." });
                 }
-
-                _basket.Save();
-                return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = _basket.Count(x => x.UserId == userId) });
-
+                
             }
             catch (Exception)
             {
@@ -151,7 +165,15 @@ namespace YallaBaity.Areas.Api.Controllers
         {
             string lang = CultureInfo.CurrentCulture.Name;
             var vwBaskets = _vwBasket.GetAll(x => x.UserId == userId).OrderByDescending(x => x.BasketId).Skip(page * size).Take(size);
-            return Ok(new DtoResponseModel() { State = true, Message = "", Data = _mapper.Map<List<DtoVwBasket>>(vwBaskets, opt => { opt.Items["culture"] = lang; }) });
+            var total = _vwBasket.GetAll(x => x.UserId == userId).Sum(x => x.Quantity * x.Price);
+            var vmBasket = new VmBasket()
+            {
+                Total = Math.Round(total, 2),
+                Delivery = 0,
+                Net = Math.Round(total, 2),
+                BasketItems = _mapper.Map<List<DtoVwBasket>>(vwBaskets, opt => { opt.Items["culture"] = lang; })
+            };
+            return Ok(new DtoResponseModel() { State = true, Message = "", Data = vmBasket });
         }
 
         [HttpGet("{userId}/[controller]/[action]")]

@@ -44,9 +44,9 @@ namespace YallaBaity.Controllers
             return View();
         }
 
-        public async Task<int> IncreaseSignalR(int Count)
+        public async Task<int> IncreaseSignalR(int Count,int providerId)
         {
-            await _hub.Clients.All.SendAsync("orderCountValue", Count);
+            await _hub.Clients.All.SendAsync("orderCountValue", Count,providerId);
             return Count;
         }
 

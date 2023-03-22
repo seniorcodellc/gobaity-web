@@ -7,11 +7,11 @@ namespace YallaBaity.Areas.Api.ViewModel
     {
         public VmBasket()
         {
-            DtoVwBaskets = new List<DtoVwBasket>(); 
+            BasketItems = new List<DtoVwBasket>(); 
         }
         public decimal Total { get; set; }
         public int Delivery { get; set; }
         public decimal Net { get; set; }
-        public List<DtoVwBasket> DtoVwBaskets { get; set; }
+        public List<DtoVwBasket> BasketItems { get; set; }
     }
 }

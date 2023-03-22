@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using YallaBaity.Areas.Api.Repository;
 using YallaBaity.Models;
 using YallaBaity.Models.ViewModels;
 using YallaBaity.Resources;
+using YallaBaity.SignalrHubs;
 
 namespace YallaBaity.Areas.Api.Controllers
 {
@@ -21,10 +23,12 @@ namespace YallaBaity.Areas.Api.Controllers
     {
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
-        public OrdersController(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IHubContext<ProviderHubs> _hub;
+        public OrdersController(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<ProviderHubs> hub)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _hub = hub;
         }
 
         [HttpPost("{userId}/[controller]")]
@@ -77,6 +81,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 foodOrder.UsersAddressId = model.UsersAddressId;
                 foodOrder.IsSchedule = model.IsSchedule;
                 foodOrder.ProviderId = model.Provider_Id;
+                foodOrder.OrderStatusId = model.StatusId;
 
                 _unitOfWork.FoodOrders.Update(foodOrder);
                 _unitOfWork.Save();
@@ -153,8 +158,8 @@ namespace YallaBaity.Areas.Api.Controllers
             }
         }
         [HttpGet]
-        [Route("GetAll")]
-        public IActionResult GetAll(int? clientId, int? providerId, int? statusId, int page = 1)
+        [Route("[controller]/[Action]")]
+        public IActionResult FilterOrders(int? userId, int? providerId, int? statusId, int page = 0,int? size = 30)
         {
             try
             {
@@ -166,9 +171,9 @@ namespace YallaBaity.Areas.Api.Controllers
                     .Include(s => s.UsersAddress)
                     .Include(s => s.User);
                 var foodOrders = ienumerableFoodOrders.ToList();
-                if (clientId != null)
+                if (userId != null)
                 {
-                    foodOrders = foodOrders.Where(c => c.UserId == clientId).ToList();
+                    foodOrders = foodOrders.Where(c => c.UserId == userId).ToList();
                 }
                 if (statusId != null)
                 {
@@ -178,7 +183,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 {
                     foodOrders = foodOrders.Where(c => c.OrderDetails.Where(x => x.Food.UserId == providerId).Count() > 0).ToList();
                 }
-                foodOrders = foodOrders.OrderBy(c => c.OrderDate).Skip((page - 1) * 3).Take(3).ToList(); //foodOrders.GetRange(((page - 1) * 3), 3).ToList();
+                foodOrders = foodOrders.OrderBy(c => c.OrderDate).Skip((page) * (int)size).Take((int)size).ToList(); 
                 List<VmFoodOrder> myFoodOrders = new List<VmFoodOrder>();
                 VmFoodOrder myFoodOrder = new VmFoodOrder();
                 foreach (var item in foodOrders)
