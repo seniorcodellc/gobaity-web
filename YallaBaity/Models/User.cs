@@ -10,7 +10,8 @@ namespace YallaBaity.Models
         public User()
         {
             Baskets = new HashSet<Basket>();
-            FoodOrders = new HashSet<FoodOrder>();
+            FoodOrderProviders = new HashSet<FoodOrder>();
+            FoodOrderUsers = new HashSet<FoodOrder>();
             UserRatings = new HashSet<UserRating>();
             UsersAddresses = new HashSet<UsersAddress>();
             UsersFavorites = new HashSet<UsersFavorite>();
@@ -41,7 +42,8 @@ namespace YallaBaity.Models
         public virtual Governorate Governorate { get; set; }
         public virtual Wallet Wallet { get; set; }
         public virtual ICollection<Basket> Baskets { get; set; }
-        public virtual ICollection<FoodOrder> FoodOrders { get; set; }
+        public virtual ICollection<FoodOrder> FoodOrderProviders { get; set; }
+        public virtual ICollection<FoodOrder> FoodOrderUsers { get; set; }
         public virtual ICollection<UserRating> UserRatings { get; set; }
         public virtual ICollection<UsersAddress> UsersAddresses { get; set; }
         public virtual ICollection<UsersFavorite> UsersFavorites { get; set; }

@@ -33,7 +33,7 @@ namespace YallaBaity.Controllers
         public IActionResult auth()
         {
             Security.SecurityManager securityManager = new Security.SecurityManager();
-            securityManager.SideSignin(this.HttpContext, new Models.User() { UserId = 1, UserName = "Omar" });
+            securityManager.SideSignin(this.HttpContext, new User() { UserId = 1, UserName = "Omar" });
             return View("Index");
         }
 

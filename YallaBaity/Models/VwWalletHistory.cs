@@ -15,5 +15,6 @@ namespace YallaBaity.Models
         public decimal Commission { get; set; }
         public int Effect { get; set; }
         public int? OrderId { get; set; }
+        public string ShortDate { get; set; }
     }
 }

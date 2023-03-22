@@ -1,0 +1,39 @@
+﻿@model int
+<h1>ProviderId = @Model</h1>
+<input type="hidden" value="@Model" id="providerId"/>
+<script src="/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/providerHub").build();
+    connection.on("CreateOrder", function (providerId) {
+        GetProviderOrders()
+    });
+
+    connection.start().then(function () {
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+
+    function GetProviderOrders() {
+        var providerId = document.getElementById("providerId").value;
+        $.ajax({
+            type: "GET",
+            url: "/api/foodorders/getall?clientId=&providerId=" + providerId + "&statusId=",
+            cache: false,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (result) {
+            alert(result.length);
+            console.log(result);
+        });
+    }
+    GetProviderOrders();
+</script>
+
+
+
+<script>
+    
+</script>

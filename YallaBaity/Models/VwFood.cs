@@ -19,6 +19,7 @@ namespace YallaBaity.Models
         public bool IsActive { get; set; }
         public DateTime CreationDate { get; set; }
         public string CookName { get; set; }
+        public int CookId { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public string ImagePath { get; set; }

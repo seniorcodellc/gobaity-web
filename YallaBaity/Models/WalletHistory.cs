@@ -15,6 +15,7 @@ namespace YallaBaity.Models
         public int Effect { get; set; }
         public decimal Commission { get; set; }
         public int? OrderId { get; set; }
+        public string ShortDate { get; set; }
 
         public virtual FoodOrder Order { get; set; }
         public virtual Wallet User { get; set; }

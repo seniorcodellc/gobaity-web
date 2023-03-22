@@ -100,14 +100,11 @@ namespace YallaBaity.Areas.Api.Repository
         public IBaseRepository<Information> Informations { get; private set; }
         public IBaseRepository<Wallet> Wallets { get; private set; }
         public IBaseRepository<WalletHistory> WalletHistories { get; private set; }
-        public IBaseRepository<VwWalletHistory> VwWalletHistories { get; private set; }
-
-        
+        public IBaseRepository<VwWalletHistory> VwWalletHistories { get; private set; }      
         public void Dispose()
         {
             _context.Dispose();
         }
-
         public int Save()
         {
             return _context.SaveChanges();

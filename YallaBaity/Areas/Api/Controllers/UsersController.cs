@@ -21,11 +21,13 @@ namespace YallaBaity.Areas.Api.Controllers
         ILinqServices _linqServices;
         IFilesServices _filesServices;
         IUnitOfWork _unitOfWork;
-        public UsersController(IUnitOfWork unitOfWork, IFilesServices filesServices, ILinqServices linqServices)
+        IBaseRepository<User> _Userrepository;
+        public UsersController(IBaseRepository<User> userrepository, IUnitOfWork unitOfWork, IFilesServices filesServices, ILinqServices linqServices)
         {
             _unitOfWork = unitOfWork;
             _filesServices = filesServices;
             _linqServices = linqServices;
+            _Userrepository = userrepository;
         }
 
         [HttpGet("{id}")]
@@ -262,7 +264,7 @@ namespace YallaBaity.Areas.Api.Controllers
             }
         }
 
-        [HttpPut("[action]/{userId}")]
+        [HttpGet("[action]/{userId}")]
         public IActionResult SetPassword(int userId, DtoChangePassword dtoChangePassword)
         {
             try
@@ -522,6 +524,67 @@ namespace YallaBaity.Areas.Api.Controllers
                 _unitOfWork.Users.Update(user);
                 _unitOfWork.Save();
                 return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = user.IsActive });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+        [HttpPut("[action]")]
+        public IActionResult UpdateUserInfo([FromBody] UpdateUserInfoModel model)
+        {
+            try
+            { 
+                var users = _unitOfWork.Users.ExecuteSqlCommand($"update [user].[Users] set " + model.FieldName + "='" + model.Value + "' where UserId='" + model.UserId + "'");
+                _unitOfWork.Save();
+                return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = model.UserId });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+        [HttpGet("[action]/{UserPhone}")]
+        public IActionResult ForgetPassword(string UserPhone)
+        {
+            try
+            {
+                int otpCode = new Random().Next(1000, 9999);
+                var user = _unitOfWork.Users.Find(x => x.Phone == UserPhone); 
+                if(user == null)
+                {
+                    return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+                }
+                ForgetPasswordModel returnModel = new ForgetPasswordModel();
+                returnModel.Code = otpCode;
+                returnModel.UserId = user.UserId;
+                return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = returnModel });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+        [HttpPut("[action]")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            try
+            {
+          
+                var user = _unitOfWork.Users.Find(x => x.UserId == model.UserId);
+                CryptServices services = new CryptServices();
+                if (user == null)
+                {
+                    return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+                }
+                if (!user.IsActive || user.IsDelete)
+                {
+                    return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbThisAccountIsInactive, Data = new { } });
+                }
+                user.Password = services.Encrypt(model.Password);
+                _unitOfWork.Users.Update(user);
+                _unitOfWork.Save();
+                return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = model.UserId });
             }
             catch (Exception)
             {

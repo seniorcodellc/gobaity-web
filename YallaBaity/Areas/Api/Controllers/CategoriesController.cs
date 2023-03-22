@@ -39,15 +39,25 @@ namespace YallaBaity.Areas.Api.Controllers
         public IActionResult GET()
         {
             try
-            { 
-                string lang = CultureInfo.CurrentCulture.Name;
+            {
+                Category category = new Category();
+                category.CategoryAname = "الكل";
+                category.CategoryEname = "All";
+                category.CategoryAdescription = "كل الطعام";
+                category.CategoryEdescription = "All Foods";
+                category.IsActive = true;
+                category.CategoryId = 1000;
+                category.ImagePath = "/Uploads/Categorys/AllFood.jpg";
 
+                string lang = CultureInfo.CurrentCulture.Name;
                 var categories = _categories.GetAll(x => x.IsActive == true && x.IsDelete == false);
+                List<Category> list = categories.ToList();
+                list.Add(category);
                 return Ok(new DtoResponseModel()
                 {
                     State = true,
                     Message = "",
-                    Data = _mapper.Map<List<DtoCategories>>(categories, opt => { opt.Items["culture"] = lang; })
+                    Data = _mapper.Map<List<DtoCategories>>(list.OrderByDescending(s => s.CategoryId), opt => { opt.Items["culture"] = lang; })
                 });
             }
             catch (Exception)

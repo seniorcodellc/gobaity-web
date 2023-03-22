@@ -135,6 +135,40 @@ namespace YallaBaity.Areas.Api.Repository
         { 
             _context.Update(entries);
             return entries;
-        } 
+        }
+
+        public int ExecuteSqlCommand(string sql)
+        {
+            return _context.Database.ExecuteSqlRaw(sql);
+        }
+        public T GetElement(int id)
+        {
+            return _context.Set<T>().Find(id);
+        }
+        //public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, string IncludeProperties = null)
+        //{
+        //    IQueryable<T> query = _context.Set<T>();
+        //    if (filter != null)
+        //    {
+        //        query = query.Where(filter);
+
+        //    }
+
+        //    if (IncludeProperties != null)
+        //    {
+        //        foreach (var item in IncludeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        //        {
+        //            query = query.Include(item);
+        //        }
+        //    }
+
+        //    if (orderby != null)
+        //    {
+        //        return orderby(query).ToList();
+        //    }
+        //    //.AsNoTracking()
+        //    return query.ToList();
+        //}
+
     }
 }

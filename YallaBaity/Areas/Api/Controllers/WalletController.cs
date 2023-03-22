@@ -27,8 +27,6 @@ namespace YallaBaity.Areas.Api.Controllers
 
             return Ok(new DtoResponseModel() { State = true, Message = "", Data = walletValue });
         }
-
-
         [HttpGet]
         public IActionResult GET(int userId, int page = 0, int size = 30)
         {
@@ -37,8 +35,6 @@ namespace YallaBaity.Areas.Api.Controllers
             {
                 walletValue = _unitOfWork.Wallets.GetAll(x => x.UserId == userId).FirstOrDefault().Balance;
             }
-
-
             return Ok(new DtoResponseModel()
             {
                 State = true,
@@ -46,12 +42,10 @@ namespace YallaBaity.Areas.Api.Controllers
                 Data = new
                 {
                     Balance = walletValue,
-                    History = _unitOfWork.VwWalletHistories.GetAll(x => x.UserId == userId)
+                    History = _unitOfWork.VwWalletHistories.GetAll(x => x.UserId == userId).Skip(page * size).Take(size)
                 }
             });
         }
-
-
         [HttpPut("{userId}")]
         public IActionResult Put(int userId, decimal amount, int effect)
         {

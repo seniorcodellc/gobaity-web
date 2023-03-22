@@ -12,8 +12,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using YallaBaity.Areas.Api.Repository;
 using YallaBaity.Areas.Api.Services;
-using YallaBaity.Models.Repository;
-using YallaBaity.Models;
 using YallaBaity.SignalrHubs;
 
 namespace YallaBaity
@@ -116,23 +114,22 @@ namespace YallaBaity
 
             //SignalR
             services.AddSignalR();
+            //services.AddCors();
+            //services.AddScoped<IRepository<FoodOrder>, Repository<FoodOrder>>();
+            //services.AddScoped<IRepository<User>, Repository<User>>();
+            //services.AddScoped<IRepository<UsersAddress>, Repository<UsersAddress>>();
+            //services.AddScoped<IRepository<OrderDetail>, Repository<OrderDetail>>();
+            //services.AddScoped<IRepository<Size>, Repository<Size>>();
+            //services.AddScoped<IRepository<OrderSize>, Repository<OrderSize>>();
+            //services.AddScoped<IRepository<FoodsSize>, Repository<FoodsSize>>();
+            //services.AddScoped<IRepository<FoodsImage>, Repository<FoodsImage>>();
+            //services.AddScoped<IRepository<FoodCategory>, Repository<FoodCategory>>();
+            //services.AddScoped<IRepository<Food>, Repository<Food>>();
+            //services.AddScoped<IRepository<OrderStatus>, Repository<OrderStatus>>();
 
             //services.AddControllersWithViews().AddJsonOptions(options => {
             //    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             //}); 
-
-            services.AddCors();
-            services.AddScoped<IRepository<FoodOrder>, Repository<FoodOrder>>();
-            services.AddScoped<IRepository<User>, Repository<User>>();
-            services.AddScoped<IRepository<UsersAddress>, Repository<UsersAddress>>();
-            services.AddScoped<IRepository<OrderDetail>, Repository<OrderDetail>>();
-            services.AddScoped<IRepository<Size>, Repository<Size>>();
-            services.AddScoped<IRepository<OrderSize>, Repository<OrderSize>>();
-            services.AddScoped<IRepository<FoodsSize>, Repository<FoodsSize>>();
-            services.AddScoped<IRepository<FoodsImage>, Repository<FoodsImage>>();
-            services.AddScoped<IRepository<FoodCategory>, Repository<FoodCategory>>();
-            services.AddScoped<IRepository<Food>, Repository<Food>>();
-            services.AddScoped<IRepository<OrderStatus>, Repository<OrderStatus>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -147,7 +144,7 @@ namespace YallaBaity
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+           // Console.WriteLine(new CryptServices().Decrypt("e9+Jav4K/IY="));
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();

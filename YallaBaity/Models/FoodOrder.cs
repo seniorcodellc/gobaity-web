@@ -19,7 +19,7 @@ namespace YallaBaity.Models
         public int? DriverId { get; set; }
         public int UserId { get; set; }
         public bool? IsSchedule { get; set; }
-        public DateTime? HandDate { get; set; }
+        public DateTime? DeliveryTime { get; set; }
         public decimal DeliveryCost { get; set; }
         public decimal Total { get; set; }
         public decimal NetTotal { get; set; }
@@ -27,10 +27,13 @@ namespace YallaBaity.Models
         public int UsersAddressId { get; set; }
         public int? PaymentMethodsId { get; set; }
         public bool? IsDeleted { get; set; }
+        public int? ProviderId { get; set; }
+        public bool? IsPending { get; set; }
 
         public virtual Driver Driver { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual PaymentMethod PaymentMethods { get; set; }
+        public virtual User Provider { get; set; }
         public virtual User User { get; set; }
         public virtual UsersAddress UsersAddress { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

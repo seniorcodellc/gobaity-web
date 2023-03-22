@@ -13,7 +13,7 @@ namespace YallaBaity.Models
         public DateTime OrderDate { get; set; }
         public int? DriverId { get; set; }
         public int UserId { get; set; }
-        public DateTime? HandDate { get; set; }
+        public DateTime? DeliveryTime { get; set; }
         public decimal DeliveryCost { get; set; }
         public decimal Total { get; set; }
         public decimal NetTotal { get; set; }

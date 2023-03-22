@@ -67,8 +67,7 @@ namespace YallaBaity.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //    optionsBuilder.UseSqlServer("Server=sql.bsite.net\\MSSQL2016;Database=crashdell_YallaBaityDB;Trusted_Connection=False;User Id=crashdell_YallaBaityDB;Password=YallaBaityDB;MultipleActiveResultSets=true");
-                optionsBuilder.UseSqlServer("Server=DESKTOP-8V47LUC\\SQLEXPRESS;Database=YallaBaityDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=YallaBaityDB;Trusted_Connection=true;");
             }
         }
 
@@ -87,6 +86,14 @@ namespace YallaBaity.Models
                 entity.Property(e => e.AdsImage)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.AdsName).HasMaxLength(50);
+
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.Price).HasColumnType("numeric(18, 2)");
             });
 
             modelBuilder.Entity<Basket>(entity =>
@@ -271,13 +278,15 @@ namespace YallaBaity.Models
 
                 entity.Property(e => e.DeliveryCost).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.HandDate).HasColumnType("datetime");
+                entity.Property(e => e.DeliveryTime).HasColumnType("datetime");
 
                 entity.Property(e => e.NetTotal).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.OrderCode).HasMaxLength(50);
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProviderId).HasColumnName("Provider_ID");
 
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
 
@@ -296,8 +305,13 @@ namespace YallaBaity.Models
                     .HasForeignKey(d => d.PaymentMethodsId)
                     .HasConstraintName("FK_FoodOrders_PaymentMethods");
 
+                entity.HasOne(d => d.Provider)
+                    .WithMany(p => p.FoodOrderProviders)
+                    .HasForeignKey(d => d.ProviderId)
+                    .HasConstraintName("FK_FoodOrders_Users");
+
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.FoodOrders)
+                    .WithMany(p => p.FoodOrderUsers)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Users");
@@ -656,6 +670,8 @@ namespace YallaBaity.Models
 
                 entity.ToView("VwBasket", "food");
 
+                entity.Property(e => e.CookId).HasColumnName("CookID");
+
                 entity.Property(e => e.CookName)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -679,6 +695,10 @@ namespace YallaBaity.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("SizeEName");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<VwCategory>(entity =>
@@ -741,6 +761,8 @@ namespace YallaBaity.Models
 
                 entity.ToView("VwFood", "food");
 
+                entity.Property(e => e.CookId).HasColumnName("Cook_ID");
+
                 entity.Property(e => e.CookName)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -783,7 +805,7 @@ namespace YallaBaity.Models
 
                 entity.Property(e => e.DeliveryCost).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.HandDate).HasColumnType("datetime");
+                entity.Property(e => e.DeliveryTime).HasColumnType("datetime");
 
                 entity.Property(e => e.NetTotal).HasColumnType("decimal(18, 2)");
 
@@ -868,9 +890,13 @@ namespace YallaBaity.Models
 
                 entity.ToView("VwOrderDetails", "order");
 
+                entity.Property(e => e.CookId).HasColumnName("Cook_ID");
+
                 entity.Property(e => e.CookName).HasMaxLength(50);
 
                 entity.Property(e => e.DeliveryCost).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.DeliveryTime).HasColumnType("datetime");
 
                 entity.Property(e => e.FoodName).HasMaxLength(50);
 
@@ -917,6 +943,10 @@ namespace YallaBaity.Models
                     .HasColumnName("SizeEName");
 
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<VwPagesGroupPermission>(entity =>
@@ -1036,6 +1066,8 @@ namespace YallaBaity.Models
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
+                entity.Property(e => e.ShortDate).HasMaxLength(36);
+
                 entity.Property(e => e.WalletHistoryId).ValueGeneratedOnAdd();
             });
 
@@ -1068,6 +1100,8 @@ namespace YallaBaity.Models
                 entity.Property(e => e.Commission).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.ShortDate).HasMaxLength(50);
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.WalletHistories)

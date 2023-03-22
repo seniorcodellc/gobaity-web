@@ -2,6 +2,7 @@
 using YallaBaity.Areas.Api.Dto;
 using YallaBaity.Areas.Api.Repository;
 using YallaBaity.Models;
+using YallaBaity.Resources;
 
 namespace YallaBaity.Areas.Api.Controllers
 {
@@ -19,7 +20,7 @@ namespace YallaBaity.Areas.Api.Controllers
         public IActionResult GET()
         { 
             var ads = _ad.GetAll();
-            return Ok(new DtoResponseModel() { State = true, Message = "", Data = ads });
+            return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = ads });
         }
          
     }

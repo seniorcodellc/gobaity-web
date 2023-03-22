@@ -39,7 +39,9 @@ namespace YallaBaity.Areas.Api.Controllers
         {
             try
             {
-                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search)).OrderBy(_foodServices.PrepairOrder(search.order)).Skip(search.page * search.size).Take(search.size);
+                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search))
+                    .OrderBy(_foodServices.PrepairOrder(search.order))
+                    .Skip(search.page * search.size).Take(search.size);
 
                 return Ok(new DtoResponseModel()
                 {
@@ -60,7 +62,6 @@ namespace YallaBaity.Areas.Api.Controllers
             try
             { 
                 string lang = CultureInfo.CurrentCulture.Name;
-
                 var categorys = _mapper.Map<List<DtoCategories>>(_unitOfWork.Categories.GetAll(x => x.IsActive == true && x.IsDelete == false), opt => { opt.Items["culture"] = lang; });
                 var ads = _unitOfWork.Ads.GetAll(x => x.IsActive == true);
 
@@ -202,7 +203,10 @@ namespace YallaBaity.Areas.Api.Controllers
             {
                 string lang = CultureInfo.CurrentCulture.Name;
 
-                var categories = _unitOfWork.Categories.FromSqlRaw($"select * from food.Categories where IsDelete='False' and IsActive='True' and food.Categories.CategoryId in(select CategoryId from food.FoodCategories where FoodId={id})");
+                var categories = _unitOfWork.Categories.FromSqlRaw($"select * from food.Categories " +
+                    $"where IsDelete='False' and IsActive='True' and " +
+                    $"food.Categories.CategoryId in(select CategoryId " +
+                    $"from food.FoodCategories where FoodId={id})");
                 var food = _unitOfWork.VwFoods.Find(x => x.FoodId == id);
 
                 return Ok(new DtoResponseModel()

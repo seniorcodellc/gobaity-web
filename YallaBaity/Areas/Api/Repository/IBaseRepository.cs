@@ -24,9 +24,12 @@ namespace YallaBaity.Areas.Api.Repository
         IQueryable<Result> GetAll<Result>(Expression<Func<T, bool>> expression, Expression<Func<T, Result>> selector);
         IQueryable<Result> GetAll<Result>(Expression<Func<T, Result>> selector);
         IQueryable<T> GetAll(string order,Expression<Func<T, bool>> expression);
+        //IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null,Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null,string IncludeProperties = null);
         IEnumerable<T> AddRange(IEnumerable<T> entries);
         T Add(T entries);
         T Update(T entries);
+        T GetElement(int id);
+        int ExecuteSqlCommand(string sql);
         void Remove(T entries);
         void RemoveRange(IQueryable<T> entries);
         void Remove(int id);

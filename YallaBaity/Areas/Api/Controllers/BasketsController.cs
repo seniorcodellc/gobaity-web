@@ -220,5 +220,31 @@ namespace YallaBaity.Areas.Api.Controllers
                 return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
             }
         }
+        //[HttpPut("{userId}/[controller]/[action]")]
+        //public IActionResult IncreaseDecrease(DtoBasketQuantity model)
+        //{
+        //    try
+        //    {
+        //        BasketSize basket = _basketSize.Find(x => x.BasketId == model.BasketId && x.FoodsSizesId == model.FoodsSizesId);
+        //        if (model.basketstype==Enums.BasketsEnum.Increase)
+        //        {
+        //            basket.Quantity = basket.Quantity + 1;    
+        //        }
+        //        else
+        //        {
+        //            if (basket.Quantity > 1)
+        //            {
+        //                basket.Quantity = basket.Quantity - 1;     
+        //            }
+        //        }
+        //        _basketSize.Update(basket);
+        //        _basketSize.Save();
+        //        return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = basket.Quantity });
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+        //    }
+        //}
     }
 }

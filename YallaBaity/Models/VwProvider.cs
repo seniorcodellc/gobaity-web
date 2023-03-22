@@ -12,5 +12,7 @@ namespace YallaBaity.Models
         public bool Gender { get; set; }
         public int? RateCount { get; set; }
         public int? Rate { get; set; }
+        public int Expr1 { get; set; }
+        public bool IsProvider { get; set; }
     }
 }

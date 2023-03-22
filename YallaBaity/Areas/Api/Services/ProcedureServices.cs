@@ -16,10 +16,8 @@ namespace YallaBaity.Areas.Api.Services
         {
             _context = context;
         }
-
         public List<T> RawSqlQuery<T>(string query, Func<DbDataReader, T> map)
         {
-
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = query;

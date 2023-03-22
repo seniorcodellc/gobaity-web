@@ -49,7 +49,6 @@ namespace YallaBaity.Areas.Api.Repository
         IBaseRepository<VwFoodCategory> VwFoodCategories { get; } 
         IBaseRepository<VwFoodOrder> VwFoodOrders { get; }
         IBaseRepository<VwWalletHistory> VwWalletHistories { get; }
-
         int Save();
     }
 }
