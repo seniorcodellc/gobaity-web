@@ -38,8 +38,9 @@ namespace YallaBaity.Areas.Api.Controllers
             try
             {
                 var user_basket_items = new List<Basket>();
-                user_basket_items = _basket.GetAll(c => c.UserId == userId && _food.GetElement(c.FoodId).UserId != _food.GetElement(model.FoodId).UserId).ToList();
-                if(user_basket_items.Count() == 0)
+                var providerId = _food.GetElement(model.FoodId).UserId;
+                user_basket_items = _basket.GetAll(c => c.UserId == userId && c.Food.UserId != providerId).Include(c => c.Food).ToList();
+                if (user_basket_items.Count() == 0)
                 {
                     Basket basket = new() { FoodId = model.FoodId, UserId = userId };
                     basket.BasketSizes = _mapper.Map<List<BasketSize>>(model.BasketSizes);
@@ -78,7 +79,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 {
                     return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = "Not Allowed To Order From Another Chef Until Your Basket Is Full, Please Check Out Your Basket First...." });
                 }
-                
+
             }
             catch (Exception)
             {
@@ -128,7 +129,7 @@ namespace YallaBaity.Areas.Api.Controllers
                     State = true,
                     Message = AppResource.lbTheOperationWasCompletedSuccessfully,
                     Data = _vwBasket.GetAll(x => x.BasketId == basket.BasketId).Sum(x => x.Quantity * x.Price)
-                }); 
+                });
             }
             catch (Exception)
             {
@@ -171,6 +172,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 Total = Math.Round(total, 2),
                 Delivery = 0,
                 Net = Math.Round(total, 2),
+                NumOfItems = _vwBasket.GetAll(x => x.UserId == userId).Sum(c => c.Quantity),
                 BasketItems = _mapper.Map<List<DtoVwBasket>>(vwBaskets, opt => { opt.Items["culture"] = lang; })
             };
             return Ok(new DtoResponseModel() { State = true, Message = "", Data = vmBasket });

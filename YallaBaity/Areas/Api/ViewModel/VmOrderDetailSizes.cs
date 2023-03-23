@@ -1,4 +1,4 @@
-﻿namespace YallaBaity.Models.ViewModels
+﻿namespace YallaBaity.Areas.Api.ViewModel
 {
     public class VmOrderDetailSizes
     {

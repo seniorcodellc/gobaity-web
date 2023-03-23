@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace YallaBaity.Models.ViewModels
+namespace YallaBaity.Areas.Api.ViewModel
 {
     public class VmFoodOrder
     {
@@ -14,7 +14,7 @@ namespace YallaBaity.Models.ViewModels
         public decimal DeliveryCost { get; set; }
         public decimal Total { get; set; }
         public int? StatusId { get; set; }
-        public string StatusName  { get; set; }
+        public string StatusName { get; set; }
         public DateTime OrderDate { get; set; }
         public List<VmOrderDetails> OrderDetails { get; set; }
 

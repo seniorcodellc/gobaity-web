@@ -35,7 +35,7 @@
         var connection = new signalR.HubConnectionBuilder().withUrl("/providerHubs").build();
 
         connection.on('orderCountValue', function (value, providerId) {
-            $('#txtOrderCount').text(value);
+            $('#txtOrderCount').text("Chef Id: " + providerId + " && His Orders: " + value);
         });
 
         connection.start().then(function () {

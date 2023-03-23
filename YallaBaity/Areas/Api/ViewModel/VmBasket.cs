@@ -12,6 +12,7 @@ namespace YallaBaity.Areas.Api.ViewModel
         public decimal Total { get; set; }
         public int Delivery { get; set; }
         public decimal Net { get; set; }
+        public int NumOfItems { get; set; }
         public List<DtoVwBasket> BasketItems { get; set; }
     }
 }
