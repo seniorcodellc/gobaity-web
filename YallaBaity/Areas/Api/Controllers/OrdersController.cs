@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using YallaBaity.Areas.Api.Dto;
 using YallaBaity.Areas.Api.Repository;
+using YallaBaity.Areas.Api.Services;
 using YallaBaity.Areas.Api.ViewModel;
 using YallaBaity.Models;
 using YallaBaity.Resources;
@@ -88,7 +89,6 @@ namespace YallaBaity.Areas.Api.Controllers
                 foodOrder.UsersAddressId = model.UsersAddressId;
                 foodOrder.IsSchedule = true;
                 foodOrder.ProviderId = model.Provider_Id;
-                foodOrder.OrderStatusId = model.StatusId;
 
                 _unitOfWork.FoodOrders.Update(foodOrder);
                 _unitOfWork.Save();
@@ -370,20 +370,20 @@ namespace YallaBaity.Areas.Api.Controllers
             }
         }
         [HttpGet("[Action]")]
-        public IActionResult GetNearByOrders(double latitude, double longitude, int? page = 0, int? size = 30)
+        public IActionResult GetNearByOrders(double latitude, double longitude, double? km = -1, int page = 0, int size = 30)
         {
             try
             {
-                var d1 = latitude * (Math.PI / 180.0);
-                var num1 = longitude * (Math.PI / 180.0);
                 List<VmFoodOrderWithDistance> ordersDistances = new List<VmFoodOrderWithDistance>();
-                var orders = _unitOfWork.FoodOrders.GetAll().Include(c => c.UsersAddress).Include(c => c.User).Include(c => c.OrderStatus).ToList();
+                var orders = (from c in _unitOfWork.FoodOrders.GetAll(c => c.OrderStatusId == 2)
+                            .Include(c => c.UsersAddress)
+                            .Include(c => c.User)
+                            .Include(c => c.OrderStatus).ToList()
+                              where (km != -1 ? Extension.calc_distance(latitude, longitude, c.UsersAddress.Latitude, c.UsersAddress.Longitude, 'K') <= km : 1 == 1)
+                              orderby Extension.calc_distance(latitude, longitude, c.UsersAddress.Latitude, c.UsersAddress.Longitude, 'K')
+                              select c).Skip(page * size).Take(size).ToList();
                 foreach (var item in orders)
                 {
-                    var d2 = item.UsersAddress.Latitude * (Math.PI / 180.0);
-                    var num2 = item.UsersAddress.Longitude * (Math.PI / 180.0) - num1;
-                    var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
-                             Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
                     VmFoodOrder order = new VmFoodOrder()
                     {
                         ID = item.OrderId,
@@ -398,14 +398,13 @@ namespace YallaBaity.Areas.Api.Controllers
                         StatusName = item.OrderStatus.OrderStatusEname,
                         OrderDate = item.OrderDate,
                     };
-                    var dis = 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+                    var dis = Extension.calc_distance(latitude, longitude, item.UsersAddress.Latitude, item.UsersAddress.Longitude, 'K');
                     ordersDistances.Add(new VmFoodOrderWithDistance()
                     {
                         Distance = Math.Round(dis, 4),
                         VmFoodOrder = order
                     });
                 }
-                ordersDistances = ordersDistances.OrderBy(c => c.Distance).Skip((int)page * (int)size).Take((int)size).ToList();
                 return Ok(new DtoResponseModel()
                 {
                     State = true,
@@ -488,6 +487,110 @@ namespace YallaBaity.Areas.Api.Controllers
             }
 
         }
+
+        [HttpPut("[controller]/[Action]")]
+        public IActionResult UpdateOrderStatus(int orderId, int statusId)
+        {
+            try
+            {
+                FoodOrder foodOrder = _unitOfWork.FoodOrders.Find(x => x.OrderId == orderId);
+                foodOrder.OrderStatusId = statusId;
+
+                _unitOfWork.FoodOrders.Update(foodOrder);
+                _unitOfWork.Save();
+                return Ok(new DtoResponseModel() { State = true, Message = AppResource.lbTheOperationWasCompletedSuccessfully, Data = foodOrder });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+
+        [HttpGet("[controller]/[Action]")]
+        public IActionResult ProviderFoods([FromQuery] DtoFoodSearchNew search, int? providerId = 0)
+        {
+            try
+            {
+                var items = (from c in _unitOfWork.Foods.GetAll(c => (providerId != 0 ? c.UserId == providerId : 1 == 1)
+                && (search.foodName != "" ? c.FoodName.Contains(search.foodName) : 1 == 1)
+                && (search.priceFrom != -1 ? c.Price >= (decimal)search.priceFrom : 1 == 1)
+                && (search.priceTo != -1 ? c.Price <= (decimal)search.priceTo : 1 == 1)
+                && (search.categoryId.Count() > 0 ? c.FoodCategories.Where(x => search.categoryId.Contains(x.CategoryId)).Count() > 0 : 1 == 1)
+                && (search.StatusId != -1 ? c.OrderDetails.Where(x => x.Order.OrderStatus.OrderStatusId == search.StatusId).Count() > 0 : 1 == 1))
+                    .Include(c => c.FoodsImages)
+                    .Include(c => c.UserRatings)
+                    .Include(c => c.OrderDetails).ThenInclude(c => c.Order).ThenInclude(c => c.OrderStatus)
+                    .Include(c => c.UsersViews)
+                    .Include(c => c.UsersFavorites)
+                    .Include(c => c.FoodCategories).ToList()
+                             where (search.latitude != "" && search.longitude != "" ? Extension.calc_distance(Convert.ToDouble(search.latitude), Convert.ToDouble(search.longitude), (double)_unitOfWork.Users.GetElement(c.UserId).Latitude, (double)_unitOfWork.Users.GetElement(c.UserId).Longitude, 'K') < 10 : 1 == 1)
+                             select c).Skip(search.page * search.size).Take(search.size).ToList();
+                var foods = new List<VmFood>();
+                int i = 1;
+                foreach (var item in items)
+                {
+                    var totalDays = (DateTime.Now - item.CreationDate).TotalDays;
+                    string dateStr = "";
+                    if (totalDays > 29 && totalDays < 365)
+                    {
+                        dateStr = (int)(totalDays / 30) + "Month";
+                    }
+                    else if (totalDays >= 365)
+                    {
+                        dateStr = (int)(totalDays / 356) + "Year";
+                    }
+                    else
+                    {
+                        dateStr = (int)totalDays + "Day";
+                    }
+                    var chef = _unitOfWork.Users.GetElement(item.UserId);
+                    foods.Add(new VmFood()
+                    {
+                        Serial = i,
+                        FoodId = item.FoodId,
+                        FoodName = item.FoodName,
+                        Price = item.Price,
+                        Description = item.Description,
+                        PreparationTime = item.PreparationTime,
+                        UserId = item.UserId,
+                        NumOfPendingFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 1).Count(),
+                        NumOfDeliveredFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 5).Count(),
+                        IsDelete = item.IsDelete,
+                        IsActive = item.IsActive,
+                        CreationDate = item.CreationDate,
+                        CookName = chef.UserName,
+                        CookId = item.UserId,
+                        Latitude = chef.Latitude,
+                        Longitude = chef.Longitude,
+                        ImagePath = item.FoodsImages.Count() > 0 ? item.FoodsImages.FirstOrDefault().ImagePath : "",
+                        Rate = item.UserRatings.Count() > 0 ? Math.Round((decimal)item.UserRatings.Sum(c => c.Rating) / (decimal)item.UserRatings.Count(), 2) : 0,
+                        RateCount = item.UserRatings.Count(),
+                        MostPopular = item.OrderDetails.Count(),
+                        MostWatched = item.UsersViews.Count(),
+                        IsFavorited = 0,
+                        Date = dateStr
+                    });
+                    i++;
+                }
+
+                var groups = foods.Select(c => c.Date).DistinctBy(c => c).ToList();
+                var groupedItems = new Dictionary<string, List<VmFood>>();
+                foreach (var item in groups)
+                {
+                    if (!groupedItems.ContainsKey(item))
+                    {
+                        groupedItems.Add(item, foods.Where(c => c.Date == item).ToList());
+                    }
+                }
+                return Ok(new DtoResponseModel() { State = true, Message = "", Data = groupedItems });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+
+
     }
 
 

@@ -9,7 +9,7 @@ namespace YallaBaity.Areas.Api.Dto
         public int PaymentMethodsId { get; set; }
         public string DeliveryTime { get; set; }
         public int Provider_Id { get; set;}
-        public int StatusId { get; set; }
+        //public int StatusId { get; set; }
 
     }
 }

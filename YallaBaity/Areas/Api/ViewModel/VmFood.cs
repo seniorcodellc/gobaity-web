@@ -11,7 +11,8 @@ namespace YallaBaity.Areas.Api.ViewModel
         public string Description { get; set; }
         public int? PreparationTime { get; set; }
         public int UserId { get; set; }
-        public bool IsApproved { get; set; }
+        public int NumOfPendingFoodOrders { get; set; }
+        public int NumOfDeliveredFoodOrders { get; set; }
         public bool IsDelete { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreationDate { get; set; }
@@ -24,7 +25,7 @@ namespace YallaBaity.Areas.Api.ViewModel
         public int? RateCount { get; set; }
         public int? MostPopular { get; set; }
         public int? MostWatched { get; set; }
-        public bool? IsFavorited { get; set; }
+        public int? IsFavorited { get; set; }
         public string Date { get; set; }
     }
 }

@@ -172,7 +172,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 Total = Math.Round(total, 2),
                 Delivery = 0,
                 Net = Math.Round(total, 2),
-                NumOfItems = _vwBasket.GetAll(x => x.UserId == userId).Sum(c => c.Quantity),
+                //NumOfItems = _vwBasket.GetAll(x => x.UserId == userId).Sum(c => c.Quantity),
                 BasketItems = _mapper.Map<List<DtoVwBasket>>(vwBaskets, opt => { opt.Items["culture"] = lang; })
             };
             return Ok(new DtoResponseModel() { State = true, Message = "", Data = vmBasket });
@@ -191,6 +191,7 @@ namespace YallaBaity.Areas.Api.Controllers
                     Total = Math.Round(total, 2),
                     Delivery = 0,
                     Net = Math.Round(total, 2),
+                    NumOfItems = _vwBasket.GetAll(x => x.UserId == userId).Sum(c => c.Quantity)
                 }
             });
         }
