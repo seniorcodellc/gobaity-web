@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -113,6 +114,14 @@ namespace YallaBaity
             services.AddControllersWithViews();
 
             //SignalR
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+                builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("https://localhost:44310");
+            }));
+
             services.AddSignalR();
             //services.AddCors();
             //services.AddScoped<IRepository<FoodOrder>, Repository<FoodOrder>>();
@@ -170,6 +179,7 @@ namespace YallaBaity
             {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<Hub>("/signalr");
                 endpoints.MapHub<ProviderHubs>("/providerHubs").AllowAnonymous();
             });
         }

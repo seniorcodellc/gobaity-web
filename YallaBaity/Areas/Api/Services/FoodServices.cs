@@ -151,52 +151,52 @@ namespace YallaBaity.Areas.Api.Services
         //}
         public string PrepairSqlQueary(DtoFoodSearch search, string otherSql = "")
         {
-            string temp = $"SELECT  [Serial],[FoodId],[FoodName],[Price],[Description],[PreparationTime],[UserId],[IsApproved],[IsDelete],[IsActive],[CreationDate],[CookName],[Cook_ID],[Latitude],[Longitude],[ImagePath],[Rate],[RateCount],[MostPopular],[MostWatched],[Date],{(search.userId == -1 ? "CAST('FALSE' as bit)" : $"[food].[IsFavorite]({search.userId},food.VwFood.FoodId)")} as [IsFavorited] FROM food.VwFood WHERE IsApproved='{search.isApproved}' and ";
+            string temp = $"SELECT  [Serial],[FoodId],[FoodName],[Price],[Description],[PreparationTime],[UserId],[IsApproved],[IsDelete],[IsActive],[CreationDate],[CookName],[Cook_ID],[Latitude],[Longitude],[ImagePath],[Rate],[RateCount],[MostPopular],[MostWatched],[Date],{(search.userId == -1 ? "CAST('FALSE' as bit)" : $"[food].[IsFavorite]({search.userId},food.VwFood.FoodId)")} as [IsFavorited] FROM food.VwFood WHERE IsApproved='{search.isApproved}' ";
             
             if (search.categoryId.Count>0)
             {
                 if(search.categoryId[0] == 1000)
                 {
-                    temp += $"FoodId in(select FoodId " +
+                    temp += " and " + $"FoodId in(select FoodId " +
                         $"from food.FoodCategories)";
                 }
                 else if (search.categoryId[0]>0)
                 {
-                    temp += $"FoodId in(select FoodId " +
-                        $"from food.FoodCategories where CategoryId in({string.Join(",", search.categoryId)})) and ";
+                    temp += " and " + $"FoodId in(select FoodId " +
+                        $"from food.FoodCategories where CategoryId in({string.Join(",", search.categoryId)})) ";
                 } 
             }
 
             if (!string.IsNullOrEmpty(search.foodName))
             {
                 //     temp += $"FoodName like '@0%' and ";
-                    temp += $"FoodName like '"+ search.foodName+ "%' and "; 
+                    temp += " and " + $"FoodName like '"+ search.foodName+ "%' "; 
             }
 
             if (search.priceFrom > -1)
             {
-                temp += $"Price>={search.priceFrom} and ";
+                temp += " and " + $"Price>={search.priceFrom}  ";
             }
 
             if (search.priceTo > -1)
             {
-                temp += $"Price<={search.priceTo} and ";
+                temp += " and " + $"Price<={search.priceTo}  ";
             }
 
             if (!string.IsNullOrEmpty(search.latitude) && !string.IsNullOrEmpty(search.longitude))
             {
-                temp += $"food.CalculateDistanceKM(food.VwFood.Latitude, food.VwFood.Longitude,{search.latitude},{search.longitude})<10  and ";
+                temp += " and " + $"food.CalculateDistanceKM(food.VwFood.Latitude, food.VwFood.Longitude,{search.latitude},{search.longitude})<10  ";
             }
 
             temp += otherSql;
-            if (search.categoryId[0] != 1000)
-            {
-                return temp.Substring(0, temp.Length - 4); ;
-            }
-            else
-            {
-                return temp;
-            }
+            //if(search.categoryId.Count > 0)
+            //{
+            //    if (search.categoryId[0] != 1000)
+            //    {
+            //        return temp.Substring(0, temp.Length - 4); ;
+            //    }
+            //}
+            return temp;
         }
 
         public string PrepairOrder(string Order)

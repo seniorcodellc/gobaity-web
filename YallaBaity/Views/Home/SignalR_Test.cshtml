@@ -32,7 +32,7 @@
 
     <script src="/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
-        var connection = new signalR.HubConnectionBuilder().withUrl("/providerHubs").build();
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44310/providerHubs").build();
 
         connection.on('orderCountValue', function (value, providerId) {
             $('#txtOrderCount').text("Chef Id: " + providerId + " && His Orders: " + value);

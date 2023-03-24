@@ -75,7 +75,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 }
                 else
                 {
-                    lastSeen = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search, $"food.VwFood.FoodId in(select FoodId from  [user].UsersViews where [user].UsersViews.[UserId]={search.userId}) and "), search.foodName).OrderBy(_foodServices.PrepairOrder(string.Empty)).Skip(search.page * search.size).Take(search.size);
+                    lastSeen = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search," and " + $"food.VwFood.FoodId in(select FoodId from  [user].UsersViews where [user].UsersViews.[UserId]={search.userId}) "), search.foodName).OrderBy(_foodServices.PrepairOrder(string.Empty)).Skip(search.page * search.size).Take(search.size);
                 }
 
                 return Ok(new
@@ -103,7 +103,7 @@ namespace YallaBaity.Areas.Api.Controllers
         {
             try
             {
-                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search, $"food.VwFood.FoodId in(select FoodId from  [user].UsersViews where [user].UsersViews.[UserId]={search.userId}) and "), search.foodName).OrderBy(_foodServices.PrepairOrder(search.order)).Skip(search.page * search.size).Take(search.size);
+                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search, " and " + $"food.VwFood.FoodId in(select FoodId from  [user].UsersViews where [user].UsersViews.[UserId]={search.userId})  "), search.foodName).OrderBy(_foodServices.PrepairOrder(search.order)).Skip(search.page * search.size).Take(search.size);
 
                 return Ok(new { State = true, message = "", Data = items });
             }
@@ -118,9 +118,17 @@ namespace YallaBaity.Areas.Api.Controllers
         {
             try
             {
-                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search, $"UserId={providerId} and "), search.foodName).OrderBy(_foodServices.PrepairOrder(search.order)).Skip(search.page * search.size).Take(search.size);
-
-                return Ok(new DtoResponseModel() { State = true, Message = "", Data = items });
+                var items = _unitOfWork.VwFoods.FromSqlRaw(_foodServices.PrepairSqlQueary(search, " and " + $"UserId={providerId} "), search.foodName).OrderBy(_foodServices.PrepairOrder(search.order)).Skip(search.page * search.size).Take(search.size).ToList();
+                var groups = items.Select(c => c.Date).DistinctBy(c => c).ToList();
+                var groupedItems = new Dictionary<string, List<VwFood>>();
+                foreach(var item in groups)
+                {
+                    if (!groupedItems.ContainsKey(item))
+                    {
+                        groupedItems.Add(item, items.Where(c => c.Date == item).ToList());
+                    }
+                }
+                return Ok(new DtoResponseModel() { State = true, Message = "", Data = groupedItems });
             }
             catch (Exception)
             {

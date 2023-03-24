@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Conventions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using YallaBaity.Areas.Api.Dto;
 using YallaBaity.Areas.Api.Repository;
 using YallaBaity.Areas.Api.ViewModel;
@@ -47,7 +52,7 @@ namespace YallaBaity.Areas.Api.Controllers
                         PaymentMethodsId = model.PaymentMethodsId,
                         DeliveryTime = DateTime.ParseExact(model.DeliveryTime, "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
                         ProviderId = model.Provider_Id,
-                        IsSchedule = model.IsSchedule,
+                        IsSchedule = true,
                         Total = Math.Round(total, 2),
                         NetTotal = Math.Round(total, 2),
                         DeliveryCost = 0,
@@ -81,7 +86,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 foodOrder.PaymentMethodsId = model.PaymentMethodsId;
                 foodOrder.DeliveryTime = DateTime.Parse(model.DeliveryTime, CultureInfo.InvariantCulture);
                 foodOrder.UsersAddressId = model.UsersAddressId;
-                foodOrder.IsSchedule = model.IsSchedule;
+                foodOrder.IsSchedule = true;
                 foodOrder.ProviderId = model.Provider_Id;
                 foodOrder.OrderStatusId = model.StatusId;
 
@@ -161,13 +166,13 @@ namespace YallaBaity.Areas.Api.Controllers
         }
         [HttpGet]
         [Route("[controller]/[Action]")]
-        public IActionResult FilterOrders(int? userId, int? providerId, int? statusId, int page = 0, int? size = 30)
+        public IActionResult FilterOrders(int? userId = 0, int? providerId = 0, int? statusId = 0, int? page = 0, int? size = 30)
         {
             try
             {
-                var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != null ? c.UserId == userId : 1 == 1)
-                && (providerId != null ? c.ProviderId == providerId : 1 == 1)
-                && (statusId != null ? c.OrderStatusId == statusId : 1 == 1))
+                var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != 0 ? c.UserId == userId : 1 == 1)
+                && (providerId != 0 ? c.ProviderId == providerId : 1 == 1)
+                && (statusId != 0 ? c.OrderStatusId == statusId : 1 == 1))
                     .Include(s => s.OrderDetails).ThenInclude(s => s.Food)
                     .Include(s => s.OrderDetails).ThenInclude(s => s.Food).ThenInclude(s => s.FoodsImages)
                     .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Food)
@@ -175,7 +180,7 @@ namespace YallaBaity.Areas.Api.Controllers
                     .Include(s => s.OrderStatus)
                     .Include(s => s.UsersAddress)
                     .Include(s => s.User)
-                    .OrderBy(c => c.OrderDate).Skip((page) * (int)size).Take((int)size).ToList();
+                    .OrderBy(c => c.OrderDate).Skip(((int)page) * (int)size).Take((int)size).ToList();
                 List<VmFoodOrder> myFoodOrders = new List<VmFoodOrder>();
                 VmFoodOrder myFoodOrder = new VmFoodOrder();
                 foreach (var item in foodOrders)
@@ -241,18 +246,19 @@ namespace YallaBaity.Areas.Api.Controllers
 
         [HttpGet]
         [Route("[controller]/[Action]")]
-        public IActionResult CountOrders(int? userId, int? providerId)
+        public IActionResult CountOrders(int? userId = 0, int? providerId = 0)
         {
             try
             {
-                var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != null ? c.UserId == userId : 1 == 1)
-                && (providerId != null ? c.ProviderId == providerId : 1 == 1));
+                var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != 0 ? c.UserId == userId : 1 == 1)
+                && (providerId != 0 ? c.ProviderId == providerId : 1 == 1));
                 return Ok(new DtoResponseModel()
                 {
                     State = true,
                     Message = AppResource.lbTheOperationWasCompletedSuccessfully,
-                    Data = new VmOrderStatusTotal  {
-                        Pending = foodOrders.Where(c => c.OrderStatusId == 1).Count(), 
+                    Data = new VmOrderStatusTotal
+                    {
+                        Pending = foodOrders.Where(c => c.OrderStatusId == 1).Count(),
                         Preparing = foodOrders.Where(c => c.OrderStatusId == 2).Count(),
                         Prepared = foodOrders.Where(c => c.OrderStatusId == 3).Count(),
                         Delivering = foodOrders.Where(c => c.OrderStatusId == 4).Count(),
@@ -363,5 +369,126 @@ namespace YallaBaity.Areas.Api.Controllers
                 return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
             }
         }
+        [HttpGet("[Action]")]
+        public IActionResult GetNearByOrders(double latitude, double longitude, int? page = 0, int? size = 30)
+        {
+            try
+            {
+                var d1 = latitude * (Math.PI / 180.0);
+                var num1 = longitude * (Math.PI / 180.0);
+                List<VmFoodOrderWithDistance> ordersDistances = new List<VmFoodOrderWithDistance>();
+                var orders = _unitOfWork.FoodOrders.GetAll().Include(c => c.UsersAddress).Include(c => c.User).Include(c => c.OrderStatus).ToList();
+                foreach (var item in orders)
+                {
+                    var d2 = item.UsersAddress.Latitude * (Math.PI / 180.0);
+                    var num2 = item.UsersAddress.Longitude * (Math.PI / 180.0) - num1;
+                    var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
+                             Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+                    VmFoodOrder order = new VmFoodOrder()
+                    {
+                        ID = item.OrderId,
+                        ClientId = item.UserId,
+                        ClientName = item.User.UserName,
+                        ClientAddress = item.UsersAddress.Address,
+                        ClientAddressLink = "http://www.google.com/maps/place/" + item.UsersAddress.Latitude + "," + item.UsersAddress.Longitude,
+                        DeliveryCost = item.DeliveryCost,
+                        NetTotal = item.NetTotal,
+                        Total = item.Total,
+                        StatusId = item.OrderStatusId,
+                        StatusName = item.OrderStatus.OrderStatusEname,
+                        OrderDate = item.OrderDate,
+                    };
+                    var dis = 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+                    ordersDistances.Add(new VmFoodOrderWithDistance()
+                    {
+                        Distance = Math.Round(dis, 4),
+                        VmFoodOrder = order
+                    });
+                }
+                ordersDistances = ordersDistances.OrderBy(c => c.Distance).Skip((int)page * (int)size).Take((int)size).ToList();
+                return Ok(new DtoResponseModel()
+                {
+                    State = true,
+                    Message = AppResource.lbTheOperationWasCompletedSuccessfully,
+                    Data = ordersDistances
+                });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+        }
+
+        [HttpGet("[Action]")]
+        public ActionResult GetOrderDetails(int orderId)
+        {
+            try
+            {
+                var item = _unitOfWork.FoodOrders.GetAll(c => c.OrderId == orderId)
+                    .Include(s => s.OrderDetails).ThenInclude(s => s.Food)
+                    .Include(s => s.OrderDetails).ThenInclude(s => s.Food).ThenInclude(s => s.FoodsImages)
+                    .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Food)
+                    .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Size)
+                    .Include(s => s.OrderStatus)
+                    .Include(s => s.UsersAddress)
+                    .Include(s => s.User)
+                    .FirstOrDefault();
+                var myFoodOrder = new VmFoodOrder()
+                {
+                    ID = item.OrderId,
+                    ClientId = item.UserId,
+                    ClientName = item.User.UserName,
+                    ClientAddress = item.UsersAddress.Address,
+                    ClientAddressLink = "http://www.google.com/maps/place/" + item.UsersAddress.Latitude + "," + item.UsersAddress.Longitude,
+                    DeliveryCost = item.DeliveryCost,
+                    NetTotal = item.NetTotal,
+                    Total = item.Total,
+                    StatusId = item.OrderStatusId,
+                    StatusName = item.OrderStatus.OrderStatusEname,
+                    OrderDate = item.OrderDate,
+                    OrderDetails = new List<VmOrderDetails>()
+                };
+                foreach (var item1 in item.OrderDetails)
+                {
+                    var foodImage = item1.Food.FoodsImages.FirstOrDefault();
+                    var orderDetail = new VmOrderDetails()
+                    {
+                        ID = item1.OrderDetailsId,
+                        FoodId = item1.FoodId,
+                        FoodName = item1.Food.FoodName,
+                        Quantity = item1.OrderSizes.Sum(c => c.Quantity),
+                        ProviderId = item1.Food.UserId,
+                        ProviderName = _unitOfWork.Users.GetElement(item1.Food.UserId).UserName,
+                        ImagePath = foodImage != null ? foodImage.ImagePath : "",
+                        OrderDetailSizes = new List<VmOrderDetailSizes>()
+                    };
+                    foreach (var item2 in item1.OrderSizes)
+                    {
+                        orderDetail.OrderDetailSizes.Add(new VmOrderDetailSizes()
+                        {
+                            ID = item2.OrderSizesId,
+                            Quantity = item2.Quantity,
+                            SizeName = item2.FoodsSizes.Size.SizeEname,
+                            SizeId = item2.FoodsSizes.SizeId,
+                            Price = item2.FoodsSizes.Price
+                        });
+                    }
+                    myFoodOrder.OrderDetails.Add(orderDetail);
+                }
+                return Ok(new DtoResponseModel()
+                {
+                    State = true,
+                    Message = AppResource.lbTheOperationWasCompletedSuccessfully,
+                    Data = myFoodOrder
+                });
+            }
+            catch (Exception)
+            {
+                return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+            }
+
+        }
     }
+
+
 }
