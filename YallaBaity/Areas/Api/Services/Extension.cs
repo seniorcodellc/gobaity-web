@@ -57,5 +57,35 @@ namespace YallaBaity.Areas.Api.Services
         {
             return (rad / Math.PI * 180.0);
         }
+
+        public static string get_reminder_date(DateTime date)
+        {
+            var totalDays = (DateTime.Now - date).TotalDays;
+            string dateStr = "";
+            if (totalDays > 29 && totalDays < 365)
+            {
+                dateStr = (int)(totalDays / 30) + " Month";
+            }
+            else if (totalDays >= 365)
+            {
+                dateStr = (int)(totalDays / 356) + " Year";
+            }
+            else
+            {
+                if ((int)totalDays == 0)
+                {
+                    dateStr = "Today";
+                }  
+                else if ((int)totalDays == 1)
+                {
+                    dateStr = "Yesterday";
+                }
+                else
+                {
+                    dateStr = (int)totalDays + " Days";
+                }
+            }
+            return dateStr;
+        }
     }
 }

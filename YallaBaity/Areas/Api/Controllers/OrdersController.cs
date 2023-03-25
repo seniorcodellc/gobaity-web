@@ -164,6 +164,87 @@ namespace YallaBaity.Areas.Api.Controllers
                 return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
             }
         }
+        //[HttpGet]
+        //[Route("[controller]/[Action]")]
+        //public IActionResult FilterOrders(int? userId = 0, int? providerId = 0, int? statusId = 0, int? page = 0, int? size = 30)
+        //{
+        //    try
+        //    {
+        //        var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != 0 ? c.UserId == userId : 1 == 1)
+        //        && (providerId != 0 ? c.ProviderId == providerId : 1 == 1)
+        //        && (statusId != 0 ? c.OrderStatusId == statusId : 1 == 1))
+        //            .Include(s => s.OrderDetails).ThenInclude(s => s.Food)
+        //            .Include(s => s.OrderDetails).ThenInclude(s => s.Food).ThenInclude(s => s.FoodsImages)
+        //            .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Food)
+        //            .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Size)
+        //            .Include(s => s.OrderStatus)
+        //            .Include(s => s.UsersAddress)
+        //            .Include(s => s.User)
+        //            .OrderBy(c => c.OrderDate).Skip(((int)page) * (int)size).Take((int)size).ToList();
+        //        List<VmFoodOrder> myFoodOrders = new List<VmFoodOrder>();
+        //        VmFoodOrder myFoodOrder = new VmFoodOrder();
+        //        foreach (var item in foodOrders)
+        //        {
+        //            myFoodOrder = new VmFoodOrder()
+        //            {
+        //                ID = item.OrderId,
+        //                ClientId = item.UserId,
+        //                ClientName = item.User.UserName,
+        //                ClientAddress = item.UsersAddress.Address,
+        //                ClientAddressLink = "http://www.google.com/maps/place/" + item.UsersAddress.Latitude + "," + item.UsersAddress.Longitude,
+        //                DeliveryCost = item.DeliveryCost,
+        //                NetTotal = item.NetTotal,
+        //                Total = item.Total,
+        //                StatusId = item.OrderStatusId,
+        //                StatusName = item.OrderStatus.OrderStatusEname,
+        //                OrderDate = item.OrderDate,
+        //                OrderDetails = new List<VmOrderDetails>()
+        //            };
+
+        //            foreach (var item1 in item.OrderDetails)
+        //            {
+        //                var foodImage = item1.Food.FoodsImages.FirstOrDefault();
+        //                var orderDetail = new VmOrderDetails()
+        //                {
+        //                    ID = item1.OrderDetailsId,
+        //                    FoodId = item1.FoodId,
+        //                    FoodName = item1.Food.FoodName,
+        //                    Quantity = item1.OrderSizes.Sum(c => c.Quantity),
+        //                    ProviderId = item1.Food.UserId,
+        //                    ProviderName = _unitOfWork.Users.GetElement(item1.Food.UserId).UserName,
+        //                    ImagePath = foodImage != null ? foodImage.ImagePath : "",
+        //                    OrderDetailSizes = new List<VmOrderDetailSizes>()
+        //                };
+        //                foreach (var item2 in item1.OrderSizes)
+        //                {
+        //                    orderDetail.OrderDetailSizes.Add(new VmOrderDetailSizes()
+        //                    {
+        //                        ID = item2.OrderSizesId,
+        //                        Quantity = item2.Quantity,
+        //                        SizeName = item2.FoodsSizes.Size.SizeEname,
+        //                        SizeId = item2.FoodsSizes.SizeId,
+        //                        Price = item2.FoodsSizes.Price
+        //                    });
+        //                }
+        //                myFoodOrder.OrderDetails.Add(orderDetail);
+        //            }
+
+        //            myFoodOrders.Add(myFoodOrder);
+        //        }
+        //        return Ok(new DtoResponseModel()
+        //        {
+        //            State = true,
+        //            Message = AppResource.lbTheOperationWasCompletedSuccessfully,
+        //            Data = myFoodOrders
+        //        });
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Ok(new DtoResponseModel() { State = false, Message = AppResource.lbError, Data = new { } });
+        //    }
+        //}
+
+
         [HttpGet]
         [Route("[controller]/[Action]")]
         public IActionResult FilterOrders(int? userId = 0, int? providerId = 0, int? statusId = 0, int? page = 0, int? size = 30)
@@ -173,69 +254,68 @@ namespace YallaBaity.Areas.Api.Controllers
                 var foodOrders = _unitOfWork.FoodOrders.GetAll(c => (userId != 0 ? c.UserId == userId : 1 == 1)
                 && (providerId != 0 ? c.ProviderId == providerId : 1 == 1)
                 && (statusId != 0 ? c.OrderStatusId == statusId : 1 == 1))
-                    .Include(s => s.OrderDetails).ThenInclude(s => s.Food)
+                    .Include(s => s.OrderDetails).ThenInclude(s => s.Food).ThenInclude(s => s.UserRatings)
                     .Include(s => s.OrderDetails).ThenInclude(s => s.Food).ThenInclude(s => s.FoodsImages)
-                    .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Food)
                     .Include(s => s.OrderDetails).ThenInclude(s => s.OrderSizes).ThenInclude(s => s.FoodsSizes).ThenInclude(s => s.Size)
                     .Include(s => s.OrderStatus)
                     .Include(s => s.UsersAddress)
                     .Include(s => s.User)
                     .OrderBy(c => c.OrderDate).Skip(((int)page) * (int)size).Take((int)size).ToList();
-                List<VmFoodOrder> myFoodOrders = new List<VmFoodOrder>();
-                VmFoodOrder myFoodOrder = new VmFoodOrder();
-                foreach (var item in foodOrders)
+                List<VmFoodOrderWithDetails> myFoodOrders = new List<VmFoodOrderWithDetails>();
+                decimal delivery = 0;
+                foreach (var item in foodOrders.OrderBy(c => c.OrderDate))
                 {
-                    myFoodOrder = new VmFoodOrder()
-                    {
-                        ID = item.OrderId,
-                        ClientId = item.UserId,
-                        ClientName = item.User.UserName,
-                        ClientAddress = item.UsersAddress.Address,
-                        ClientAddressLink = "http://www.google.com/maps/place/" + item.UsersAddress.Latitude + "," + item.UsersAddress.Longitude,
-                        DeliveryCost = item.DeliveryCost,
-                        NetTotal = item.NetTotal,
-                        Total = item.Total,
-                        StatusId = item.OrderStatusId,
-                        StatusName = item.OrderStatus.OrderStatusEname,
-                        OrderDate = item.OrderDate,
-                        OrderDetails = new List<VmOrderDetails>()
-                    };
-
+                    delivery += item.DeliveryCost;
+                    string dateStr = Extension.get_reminder_date(item.OrderDate);
+                    
                     foreach (var item1 in item.OrderDetails)
                     {
-                        var foodImage = item1.Food.FoodsImages.FirstOrDefault();
-                        var orderDetail = new VmOrderDetails()
-                        {
-                            ID = item1.OrderDetailsId,
-                            FoodId = item1.FoodId,
-                            FoodName = item1.Food.FoodName,
-                            Quantity = item1.OrderSizes.Sum(c => c.Quantity),
-                            ProviderId = item1.Food.UserId,
-                            ProviderName = _unitOfWork.Users.GetElement(item1.Food.UserId).UserName,
-                            ImagePath = foodImage != null ? foodImage.ImagePath : "",
-                            OrderDetailSizes = new List<VmOrderDetailSizes>()
-                        };
                         foreach (var item2 in item1.OrderSizes)
                         {
-                            orderDetail.OrderDetailSizes.Add(new VmOrderDetailSizes()
+                            myFoodOrders.Add(new VmFoodOrderWithDetails()
                             {
-                                ID = item2.OrderSizesId,
+                                OrderId = item.OrderId,
+                                OrderDateTime = item.OrderDate.ToString("dd-MM-yyyy HH:mm"),
+                                FoodsSizesId = item2.FoodsSizesId,
+                                UserId = item.UserId,
+                                UserName = item.User.UserName,
+                                FoodId = item1.FoodId,
+                                FoodName = item1.Food.FoodName,
+                                CookName = _unitOfWork.Users.GetElement(item1.Food.UserId).UserName,
+                                CookId = item1.Food.UserId,
+                                PreparationTime = item1.Food.PreparationTime,
+                                Rate = item1.Food.UserRatings.Count() > 0 ? Math.Round((decimal)item1.Food.UserRatings.Sum(c => c.Rating) / (decimal)item1.Food.UserRatings.Count(), 2) : 0,
                                 Quantity = item2.Quantity,
+                                Price = item2.FoodsSizes.Price,
+                                ImagePath = item1.Food.FoodsImages.Count() > 0 ? item1.Food.FoodsImages.FirstOrDefault().ImagePath : "",
                                 SizeName = item2.FoodsSizes.Size.SizeEname,
-                                SizeId = item2.FoodsSizes.SizeId,
-                                Price = item2.FoodsSizes.Price
+                                Date = dateStr
                             });
                         }
-                        myFoodOrder.OrderDetails.Add(orderDetail);
                     }
-
-                    myFoodOrders.Add(myFoodOrder);
                 }
+                var groups = myFoodOrders.Select(c => c.Date).DistinctBy(c => c).ToList();
+                var groupedItems = new Dictionary<string, List<VmFoodOrderWithDetails>>();
+                foreach (var item in groups)
+                {
+                    if (!groupedItems.ContainsKey(item))
+                    {
+                        groupedItems.Add(item, myFoodOrders.Where(c => c.Date == item).ToList());
+                    }
+                }
+                var total = myFoodOrders.Sum(c => c.Price * c.Quantity);
+                
                 return Ok(new DtoResponseModel()
                 {
                     State = true,
                     Message = AppResource.lbTheOperationWasCompletedSuccessfully,
-                    Data = myFoodOrders
+                    Data =new 
+                    {
+                        Total = Math.Round(total, 2),
+                        Delivery = delivery,
+                        Net = Math.Round(total, 2),
+                        Items = groupedItems
+                    } 
                 });
             }
             catch (Exception)
@@ -529,20 +609,7 @@ namespace YallaBaity.Areas.Api.Controllers
                 int i = 1;
                 foreach (var item in items)
                 {
-                    var totalDays = (DateTime.Now - item.CreationDate).TotalDays;
-                    string dateStr = "";
-                    if (totalDays > 29 && totalDays < 365)
-                    {
-                        dateStr = (int)(totalDays / 30) + "Month";
-                    }
-                    else if (totalDays >= 365)
-                    {
-                        dateStr = (int)(totalDays / 356) + "Year";
-                    }
-                    else
-                    {
-                        dateStr = (int)totalDays + "Day";
-                    }
+                    string dateStr = Extension.get_reminder_date(item.CreationDate);
                     var chef = _unitOfWork.Users.GetElement(item.UserId);
                     foods.Add(new VmFood()
                     {
