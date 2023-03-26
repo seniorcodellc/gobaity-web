@@ -13,6 +13,8 @@ namespace YallaBaity.Areas.Api.ViewModel
         public int UserId { get; set; }
         public int NumOfPendingFoodOrders { get; set; }
         public int NumOfDeliveredFoodOrders { get; set; }
+        public int FoodSizeId { get; set; }
+        public string SizeName { get; set; }
         public bool IsDelete { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreationDate { get; set; }

@@ -611,33 +611,38 @@ namespace YallaBaity.Areas.Api.Controllers
                 {
                     string dateStr = Extension.get_reminder_date(item.CreationDate);
                     var chef = _unitOfWork.Users.GetElement(item.UserId);
-                    foods.Add(new VmFood()
+                    foreach(var item1 in _unitOfWork.FoodsSizes.GetAll(c => c.FoodId == item.FoodId).Include(c => c.Size))
                     {
-                        Serial = i,
-                        FoodId = item.FoodId,
-                        FoodName = item.FoodName,
-                        Price = item.Price,
-                        Description = item.Description,
-                        PreparationTime = item.PreparationTime,
-                        UserId = item.UserId,
-                        NumOfPendingFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 1).Count(),
-                        NumOfDeliveredFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 5).Count(),
-                        IsDelete = item.IsDelete,
-                        IsActive = item.IsActive,
-                        CreationDate = item.CreationDate,
-                        CookName = chef.UserName,
-                        CookId = item.UserId,
-                        Latitude = chef.Latitude,
-                        Longitude = chef.Longitude,
-                        ImagePath = item.FoodsImages.Count() > 0 ? item.FoodsImages.FirstOrDefault().ImagePath : "",
-                        Rate = item.UserRatings.Count() > 0 ? Math.Round((decimal)item.UserRatings.Sum(c => c.Rating) / (decimal)item.UserRatings.Count(), 2) : 0,
-                        RateCount = item.UserRatings.Count(),
-                        MostPopular = item.OrderDetails.Count(),
-                        MostWatched = item.UsersViews.Count(),
-                        IsFavorited = 0,
-                        Date = dateStr
-                    });
-                    i++;
+                        foods.Add(new VmFood()
+                        {
+                            Serial = i,
+                            FoodId = item.FoodId,
+                            FoodName = item.FoodName,
+                            Price = item.Price,
+                            Description = item.Description,
+                            PreparationTime = item.PreparationTime,
+                            UserId = item.UserId,
+                            NumOfPendingFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 1).Count(),
+                            NumOfDeliveredFoodOrders = item.OrderDetails.Where(c => c.Order.OrderStatusId == 5).Count(),
+                            FoodSizeId = item1.FoodsSizesId,
+                            SizeName = item1.Size.SizeEname,
+                            IsDelete = item.IsDelete,
+                            IsActive = item.IsActive,
+                            CreationDate = item.CreationDate,
+                            CookName = chef.UserName,
+                            CookId = item.UserId,
+                            Latitude = chef.Latitude,
+                            Longitude = chef.Longitude,
+                            ImagePath = item.FoodsImages.Count() > 0 ? item.FoodsImages.FirstOrDefault().ImagePath : "",
+                            Rate = item.UserRatings.Count() > 0 ? Math.Round((decimal)item.UserRatings.Sum(c => c.Rating) / (decimal)item.UserRatings.Count(), 2) : 0,
+                            RateCount = item.UserRatings.Count(),
+                            MostPopular = item.OrderDetails.Count(),
+                            MostWatched = item.UsersViews.Count(),
+                            IsFavorited = 0,
+                            Date = dateStr
+                        });
+                        i++;
+                    }
                 }
 
                 var groups = foods.Select(c => c.Date).DistinctBy(c => c).ToList();
